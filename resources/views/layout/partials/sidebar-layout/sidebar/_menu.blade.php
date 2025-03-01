@@ -10,25 +10,43 @@
             data-kt-menu-expand="false">
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <div class="menu-item">
-                    <a class="menu-link" href={{ route('users.index')}}>
-                        <span class="menu-icon"></span>
+                    <a class="menu-link" href={{ route('users.index') }}>
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-user">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </span>
                         <span class="menu-title">Users</span>
                     </a>
                 </div>
             </div>
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <div class="menu-item">
-                    <a class="menu-link" href={{ route('roles.index')}}>
-                        <span class="menu-icon"></span>
+                    <a class="menu-link" href={{ route('roles.index') }}>
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-people">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                                <span class="path5"></span>
+                            </i>
+                        </span>
                         <span class="menu-title">Role</span>
                     </a>
                 </div>
             </div>
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <div class="menu-item">
-                    <a class="menu-link" href={{ route('settings.edit')}}>
-                        <span class="menu-icon"></span>
-                        <span class="menu-title">Setting WEB</span>
+                    <a class="menu-link" href={{ route('settings.edit') }}>
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-setting-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Setting</span>
                     </a>
                 </div>
             </div>
