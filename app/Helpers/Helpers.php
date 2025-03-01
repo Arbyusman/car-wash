@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\SizeTypes;
 use App\Models\Setting;
 
 if (! function_exists('theme')) {
@@ -383,5 +384,11 @@ if (! function_exists('setting')) {
         $setting = Setting::first();
 
         return $setting;
+    }
+}
+if (! function_exists('sizeTypes')) {
+    function sizeTypes()
+    {
+        return SizeTypes::toValueArray();
     }
 }
