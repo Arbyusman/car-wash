@@ -5,9 +5,11 @@ namespace App\Providers;
 use App\Models\Vehicle;
 use App\Models\VehicleType;
 use App\Models\Washer;
+use App\Models\WashTransaction;
 use App\Observers\VehicleObserver;
 use App\Observers\VehicleTypeObserver;
 use App\Observers\WasherObserver;
+use App\Observers\WashTransactionObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -36,6 +38,7 @@ class EventServiceProvider extends ServiceProvider
         VehicleType::observe(VehicleTypeObserver::class);
         Vehicle::observe(VehicleObserver::class);
         Washer::observe(WasherObserver::class);
+        WashTransaction::observe(WashTransactionObserver::class);
     }
 
     /**

@@ -59,108 +59,123 @@
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $washTransaction->transaction_number ?? 'N/A' }}</td>
                                         <td>{{ $washTransaction->washer->name ?? 'N/A' }}</td>
-                                        <td>{{ $washTransaction->created_at ?? 'N/A' }}</td>
-                                        <td>{{ toRupiah($washTransaction->washTransactionDetail?->vehicle?->cost ?? 0) }}</td>
-                                        <td>{{ toRupiah($washTransaction->washTransactionDetail->additional_cost ?? 0) }}</td>
+                                        <td>{{ $washTransaction->created_at ? \Carbon\Carbon::parse($washTransaction->created_at)->locale('id')->translatedFormat('l, d F Y H:i') . ' WITA' : 'N/A' }}
+                                        </td>
+
+                                        <td>{{ toRupiah($washTransaction->washTransactionDetail?->vehicle?->cost ?? 0) }}
+                                        </td>
+                                        <td>{{ toRupiah($washTransaction->washTransactionDetail->additional_cost ?? 0) }}
+                                        </td>
                                         <td>{{ toRupiah($washTransaction->total_cost ?? 0) }}</td>
                                         <td>
-                                            <button title="Ubah Transaksi" type="button"
-                                                class="btn btn-icon btn-warning" data-bs-toggle="modal"
-                                                data-bs-target="#update-wash-transaction{{ $washTransaction->id }}">
-                                                <i class="fas far fa-edit"></i>
-                                            </button>
+                                            <a href="" title="Print Nota" class="btn btn-icon btn-secondary">
+                                                <i class="fas far fa-file-alt"></i>
+                                            </a>
+                                            @if (!$washTransaction->is_printed)
+                                                <button title="Ubah Transaksi" type="button"
+                                                    class="btn btn-icon btn-warning" data-bs-toggle="modal"
+                                                    data-bs-target="#update-wash-transaction{{ $washTransaction->id }}">
+                                                    <i class="fas far fa-edit"></i>
+                                                </button>
 
-                                            <x-modal id="update-wash-transaction{{ $washTransaction->id }}" class="mw-650px">
-                                                <x-slot name="title">Ubah Data Transaksi</x-slot>
-                                                <x-slot name="body">
-                                                    <form
-                                                        action="{{ route('wash-transactions.update', ['wash_transaction' => $washTransaction]) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('PUT')
+                                                <x-modal id="update-wash-transaction{{ $washTransaction->id }}"
+                                                    class="mw-650px">
+                                                    <x-slot name="title">Ubah Data Transaksi</x-slot>
+                                                    <x-slot name="body">
+                                                        <form
+                                                            action="{{ route('wash-transactions.update', ['wash_transaction' => $washTransaction]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('PUT')
 
-                                                        <div class="fv-row my-4">
-                                                            <x-label class="mb-2 fs-6 fw-semibold"
-                                                                value="Tipe Transaksi" />
-                                                            <select class="form-select" name="vehicle_type_id" required>
-                                                                <option value="" readonly>Pilih Tipe Transaksi
-                                                                </option>
-                                                                @foreach ($vehicles as $vehicle)
-                                                                    <option value="{{ $vehicle->id }}"
-                                                                        {{-- {{ $washTransaction->vehicle_type_id == $vehicle->id ? 'selected' : '' }} --}}>
-                                                                        {{ $vehicle->name }}
+                                                            <div class="fv-row my-4">
+                                                                <x-label class="mb-2 fs-6 fw-semibold"
+                                                                    value="Tipe Transaksi" />
+                                                                <select class="form-select" name="vehicle_type_id"
+                                                                    required>
+                                                                    <option value="" readonly>Pilih Tipe Transaksi
                                                                     </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
+                                                                    @foreach ($vehicles as $vehicle)
+                                                                        <option value="{{ $vehicle->id }}"
+                                                                            {{-- {{ $washTransaction->vehicle_type_id == $vehicle->id ? 'selected' : '' }} --}}>
+                                                                            {{ $vehicle->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
 
-                                                        <div class="fv-row mb-4">
-                                                            <x-label class="mb-2 fs-6 fw-semibold" value="Biaya" />
-                                                            <x-input class="idr-currency" type="text" id="edit_cost"
-                                                                name="cost" value="{{ $washTransaction->cost }}"
-                                                                placeholder="Biaya" />
+                                                            <div class="fv-row mb-4">
+                                                                <x-label class="mb-2 fs-6 fw-semibold" value="Biaya" />
+                                                                <x-input class="idr-currency" type="text"
+                                                                    id="edit_cost" name="cost"
+                                                                    value="{{ $washTransaction->cost }}"
+                                                                    placeholder="Biaya" />
 
-                                                        </div>
+                                                            </div>
 
-                                                        <div class="fv-row mb-4">
-                                                            <x-label class="mb-2 fs-6 fw-semibold"
-                                                                value="Upah Pencuci" />
-                                                            <x-input class="idr-currency" type="text"
-                                                                id="edit_washer_cost" name="washer_cost"
-                                                                value="{{ $washTransaction->washer_cost }}"
-                                                                placeholder="Upah Pencuci" />
+                                                            <div class="fv-row mb-4">
+                                                                <x-label class="mb-2 fs-6 fw-semibold"
+                                                                    value="Upah Pencuci" />
+                                                                <x-input class="idr-currency" type="text"
+                                                                    id="edit_washer_cost" name="washer_cost"
+                                                                    value="{{ $washTransaction->washer_cost }}"
+                                                                    placeholder="Upah Pencuci" />
 
-                                                        </div>
-                                                        <div class="modal-footer d-flex justify-content-center gap-2">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Batal</button>
-                                                            <button type="submit"
-                                                                class="btn btn-primary">Simpan</button>
-                                                        </div>
+                                                            </div>
+                                                            <div
+                                                                class="modal-footer d-flex justify-content-center gap-2">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Batal</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Simpan</button>
+                                                            </div>
 
-                                                    </form>
-                                                </x-slot>
-                                            </x-modal>
+                                                        </form>
+                                                    </x-slot>
+                                                </x-modal>
 
 
-                                            <button title="Hapus Transaksi" type="button"
-                                                class="btn btn-icon btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#delete-wash-transaction{{ $washTransaction->id }}">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
+                                                <button title="Hapus Transaksi" type="button"
+                                                    class="btn btn-icon btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#delete-wash-transaction{{ $washTransaction->id }}">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
 
-                                            <div class="modal fade" id="delete-wash-transaction{{ $washTransaction->id }}"
-                                                tabindex="-1" role="dialog"
-                                                aria-labelledby="modalTitle{{ $washTransaction->id }}"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog " role="document">
-                                                    <form
-                                                        action="{{ route('wash-transactions.destroy', ['wash_transaction' => $washTransaction]) }}"
-                                                        method="POST" class="modal-content">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <div class="modal-body justify-content-center d-flex">
-                                                            <div class="row col-12 pt-8">
-                                                                <div
-                                                                    class="row text-center justify-content-center align-items-center">
-                                                                    <h2>Menghapus Data Transaksi</h2>
-                                                                    <span class="text-muted"> Setelah dihapus, data
-                                                                        Transaksi
-                                                                        tidak
-                                                                        dapat di
-                                                                        kembalikan, yakin ingin menghapus?</span>
+                                                <div class="modal fade"
+                                                    id="delete-wash-transaction{{ $washTransaction->id }}"
+                                                    tabindex="-1" role="dialog"
+                                                    aria-labelledby="modalTitle{{ $washTransaction->id }}"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog " role="document">
+                                                        <form
+                                                            action="{{ route('wash-transactions.destroy', ['wash_transaction' => $washTransaction]) }}"
+                                                            method="POST" class="modal-content">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <div class="modal-body justify-content-center d-flex">
+                                                                <div class="row col-12 pt-8">
+                                                                    <div
+                                                                        class="row text-center justify-content-center align-items-center">
+                                                                        <h2>Menghapus Data Transaksi</h2>
+                                                                        <span class="text-muted"> Setelah dihapus, data
+                                                                            Transaksi
+                                                                            tidak
+                                                                            dapat di
+                                                                            kembalikan, yakin ingin menghapus?</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="pb-12 justify-content-center  d-flex">
-                                                            <button type="button" class="m-2 btn btn-primary"
-                                                                data-bs-dismiss="modal">Tidak</button>
-                                                            <button type="submit"
-                                                                class="m-2 btn btn-danger">YA</button>
-                                                        </div>
-                                                    </form>
+                                                            <div class="pb-12 justify-content-center  d-flex">
+                                                                <button type="button" class="m-2 btn btn-primary"
+                                                                    data-bs-dismiss="modal">Tidak</button>
+                                                                <button type="submit"
+                                                                    class="m-2 btn btn-danger">YA</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endif
+
 
 
 
@@ -235,8 +250,7 @@
                                                 class="path2"></span></i>
                                     </button>
 
-                                    <input type="text"
-                                        class="form-control form-control-solid border-0 ps-12"
+                                    <input type="text" class="form-control form-control-solid border-0 ps-12"
                                         data-kt-dialer-control="input" placeholder="Amount" name="additional_cost"
                                         id="additional_cost" readonly value="" />
 

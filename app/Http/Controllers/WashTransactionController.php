@@ -16,9 +16,9 @@ class WashTransactionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    private $title = 'Vehicles';
+    private $title = 'Transactions';
 
-    private $description = 'Detail Kendaraan';
+    private $description = 'Detail Transaksi';
 
     public function index()
     {
