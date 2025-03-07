@@ -8,6 +8,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleTypeController;
+use App\Http\Controllers\WasherController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,5 +68,6 @@ Route::middleware(['role_web:1', 'verified'])
 
         Route::resource('vehicle-types', VehicleTypeController::class)->except(['create', 'show', 'edit']);
         Route::resource('vehicles', VehicleController::class)->except(['create', 'show', 'edit']);
+        Route::resource('washers', WasherController::class)->except(['create', 'show', 'edit']);
         Route::resource('logs', LogController::class)->except(['create', 'show', 'edit', 'update', 'destroy']);
     });

@@ -40,6 +40,22 @@
             </div>
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <div class="menu-item">
+                    <a class="menu-link" href={{ route('washers.index') }}>
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-people">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                                <span class="path5"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Pekerja</span>
+                    </a>
+                </div>
+            </div>
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div class="menu-item">
                     <a class="menu-link" href={{ route('users.index') }}>
                         <span class="menu-icon">
                             <i class="ki-duotone ki-user">

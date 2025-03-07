@@ -10,17 +10,17 @@ class WasherController extends Controller
     /**
      * Display a listing of the resource.
      */
+    private $title = 'Washers';
+
+    private $description = 'Detail Pekerja';
+
     public function index()
     {
-        //
-    }
+        $title = $this->title;
+        $description = $this->description;
+        $washers = Washer::orderBy('created_at', 'desc')->paginate(10);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('admin.washers.index', compact('title', 'washers', 'description'));
     }
 
     /**
@@ -28,23 +28,13 @@ class WasherController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Washer $washer)
-    {
-        //
-    }
+        Washer::create($request->all());
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Washer $washer)
-    {
-        //
+        return redirect()->route('washers.index')->with('success', 'Washer created successfully');
     }
 
     /**
@@ -52,7 +42,13 @@ class WasherController extends Controller
      */
     public function update(Request $request, Washer $washer)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $washer->update($request->all());
+
+        return redirect()->route('washers.index')->with('success', 'Washer updated successfully');
     }
 
     /**
@@ -60,6 +56,8 @@ class WasherController extends Controller
      */
     public function destroy(Washer $washer)
     {
-        //
+        $washer->delete();
+
+        return redirect()->route('washers.index')->with('success', 'Washer deleted successfully');
     }
 }
