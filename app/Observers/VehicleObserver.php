@@ -16,7 +16,7 @@ class VehicleObserver
      */
     public function created(Vehicle $vehicle): void
     {
-        $this->addLog('Membuat data Tipe Kendaraan '.$vehicle->name, $this->table, $vehicle->id);
+        $this->addLog('Membuat data Kendaraan '.$vehicle->name, $this->table, $vehicle->id);
     }
 
     /**
@@ -25,7 +25,7 @@ class VehicleObserver
     public function updated(Vehicle $vehicle): void
     {
 
-        $this->addLog('Mengubah data Tipe Kendaraan '.$vehicle->name, $this->table, $vehicle->id);
+        $this->addLog('Mengubah data Kendaraan '.$vehicle->name, $this->table, $vehicle->id);
     }
 
     /**
@@ -33,6 +33,6 @@ class VehicleObserver
      */
     public function deleted(Vehicle $vehicle): void
     {
-        $this->addLog('Menghapus data Tipe Kendaraan '.$vehicle->name, $this->table, $vehicle->id);
+        $this->addLog('Menghapus data Kendaraan '.$vehicle->name, $this->table, $vehicle->id);
     }
 }

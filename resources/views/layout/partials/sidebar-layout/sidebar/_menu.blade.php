@@ -80,6 +80,20 @@
                     </a>
                 </div>
             </div>
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div class="menu-item">
+                    <a class="menu-link" href={{ route('logs.index') }}>
+                        <span class="menu-icon"><i class="ki-duotone ki-update-file">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Log Aplikasi</span>
+                    </a>
+                </div>
+            </div>
 
         </div>
         <!--end::Menu-->

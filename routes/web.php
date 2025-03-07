@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
@@ -66,4 +67,5 @@ Route::middleware(['role_web:1', 'verified'])
 
         Route::resource('vehicle-types', VehicleTypeController::class)->except(['create', 'show', 'edit']);
         Route::resource('vehicles', VehicleController::class)->except(['create', 'show', 'edit']);
+        Route::resource('logs', LogController::class)->except(['create', 'show', 'edit', 'update', 'destroy']);
     });
