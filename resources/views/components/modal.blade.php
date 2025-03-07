@@ -10,7 +10,7 @@
                     {{ $toolbar }}
                 </div>
             </div>
-            <div {{ $body->attributes->class(['modal-body', 'scroll-y', 'mx-lg-5', 'my-7']) }}>
+            <div {{ $body->attributes->class(['modal-body', 'scroll-y', 'mx-lg-5', 'mb-2']) }}>
                 {{ $body }}
             </div>
             @if ($footer)

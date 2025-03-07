@@ -7,7 +7,7 @@
 
 @include('partials/modals/create-project/_main')
 
-@include('partials/modals/_new-target')
+{{-- @include('partials/modals/_new-target') --}}
 
 @include('partials/modals/_view-users')
 

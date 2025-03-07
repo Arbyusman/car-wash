@@ -32,48 +32,25 @@
     {!! includeFonts() !!}
     <!--end::Fonts-->
 
-    <style>
-        .dt-layout-row {
-            padding-left: 15px !important;
-            padding-right: 15px !important;
-        }
 
-        .dt-column-title {
-            display: flex !important;
-            justify-content: left !important;
-            padding-left: 5px !important;
-        }
-
-        .dt-type-numeric {
-
-            text-align: left !important
-        }
-
-        .dt-length {
-            margin-left: 25px !important;
-        }
-
-        .dt-search {
-            margin-right: 25px !important;
-        }
-    </style>
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     @foreach (getGlobalAssets('css') as $path)
-        {!! sprintf('<link rel="stylesheet" href="%s">', asset($path)) !!}
+    {!! sprintf('<link rel="stylesheet" href="%s">', asset($path)) !!}
     @endforeach
     <!--end::Global Stylesheets Bundle-->
 
     <!--begin::Vendor Stylesheets(used by this page)-->
     @foreach (getVendors('css') as $path)
-        {!! sprintf('<link rel="stylesheet" href="%s">', asset($path)) !!}
+    {!! sprintf('<link rel="stylesheet" href="%s">', asset($path)) !!}
     @endforeach
     <!--end::Vendor Stylesheets-->
 
     <!--begin::Custom Stylesheets(optional)-->
     @foreach (getCustomCss() as $path)
-        {!! sprintf('<link rel="stylesheet" href="%s">', asset($path)) !!}
+    {!! sprintf('<link rel="stylesheet" href="%s">', asset($path)) !!}
     @endforeach
     <!--end::Custom Stylesheets-->
+    @stack('styles')
 </head>
 <!--end::Head-->
 
@@ -107,7 +84,7 @@
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
 
-
+    @stack('scripts')
 </body>
 <!--end::Body-->
 

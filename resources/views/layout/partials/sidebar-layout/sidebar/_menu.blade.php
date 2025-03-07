@@ -10,6 +10,36 @@
             data-kt-menu-expand="false">
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <div class="menu-item">
+                    <a class="menu-link" href={{ route('vehicle-types.index') }}>
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-car">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                                <span class="path5"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Tipe Kendaraan</span>
+                    </a>
+                </div>
+            </div>
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div class="menu-item">
+                    <a class="menu-link" href={{ route('vehicles.index') }}>
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-car-3">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Kendaraan</span>
+                    </a>
+                </div>
+            </div>
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div class="menu-item">
                     <a class="menu-link" href={{ route('users.index') }}>
                         <span class="menu-icon">
                             <i class="ki-duotone ki-user">

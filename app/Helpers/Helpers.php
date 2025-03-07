@@ -392,3 +392,10 @@ if (! function_exists('sizeTypes')) {
         return SizeTypes::toValueArray();
     }
 }
+
+if (! function_exists('toRupiah')) {
+    function toRupiah($amount)
+    {
+        return 'Rp '.number_format($amount, 0, ',', '.');
+    }
+}

@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleTypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -64,4 +65,5 @@ Route::middleware(['role_web:1', 'verified'])
         });
 
         Route::resource('vehicle-types', VehicleTypeController::class)->except(['create', 'show', 'edit']);
+        Route::resource('vehicles', VehicleController::class)->except(['create', 'show', 'edit']);
     });
