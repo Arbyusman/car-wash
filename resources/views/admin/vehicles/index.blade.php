@@ -50,7 +50,7 @@
                             @endphp
 
                             @if ($vehicles->isEmpty())
-                                <x-no-data-row colspan="4" message="Data tidak ditemukan" />
+                                <x-no-data-row colspan="6" message="Data tidak ditemukan" />
                             @else
                                 @foreach ($vehicles as $vehicle)
                                     <tr>
@@ -231,8 +231,6 @@
     </div>
 
     @push('scripts')
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"></script>
         <script src="{{ asset('assets/js/custom/apps/vehicles/index.js') }}"></script>
     @endpush
 

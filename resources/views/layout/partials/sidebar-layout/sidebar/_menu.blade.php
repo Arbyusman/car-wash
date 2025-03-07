@@ -56,6 +56,19 @@
             </div>
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                 <div class="menu-item">
+                    <a class="menu-link" href={{ route('wash-transactions.index') }}>
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-chart-line-up ">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Transaksi</span>
+                    </a>
+                </div>
+            </div>
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div class="menu-item">
                     <a class="menu-link" href={{ route('users.index') }}>
                         <span class="menu-icon">
                             <i class="ki-duotone ki-user">

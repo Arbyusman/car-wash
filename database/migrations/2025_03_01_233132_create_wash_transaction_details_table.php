@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('wash_transaction_id')->constrained('wash_transactions');
             $table->foreignId('vehicle_id')->constrained('vehicles');
-            $table->string('name');
             $table->string('plate_number');
             $table->float('additional_cost');
             $table->softDeletes();

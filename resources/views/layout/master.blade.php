@@ -19,12 +19,7 @@
     <meta property="og:type" content="article" />
     <meta property="og:title" content="" />
 
-    <link rel="canonical" href="" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.bootstrap5.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.0/css/responsive.dataTables.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.3.0/css/searchPanes.dataTables.min.css" />
-
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 
     {!! includeFavicon() !!}
 
@@ -35,19 +30,19 @@
 
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     @foreach (getGlobalAssets('css') as $path)
-    {!! sprintf('<link rel="stylesheet" href="%s">', asset($path)) !!}
+        {!! sprintf('<link rel="stylesheet" href="%s">', asset($path)) !!}
     @endforeach
     <!--end::Global Stylesheets Bundle-->
 
     <!--begin::Vendor Stylesheets(used by this page)-->
     @foreach (getVendors('css') as $path)
-    {!! sprintf('<link rel="stylesheet" href="%s">', asset($path)) !!}
+        {!! sprintf('<link rel="stylesheet" href="%s">', asset($path)) !!}
     @endforeach
     <!--end::Vendor Stylesheets-->
 
     <!--begin::Custom Stylesheets(optional)-->
     @foreach (getCustomCss() as $path)
-    {!! sprintf('<link rel="stylesheet" href="%s">', asset($path)) !!}
+        {!! sprintf('<link rel="stylesheet" href="%s">', asset($path)) !!}
     @endforeach
     <!--end::Custom Stylesheets-->
     @stack('styles')
@@ -83,6 +78,11 @@
     @endforeach
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
+
+
+    <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
+    <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
+
 
     @stack('scripts')
 </body>

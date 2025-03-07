@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('wash_transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('washer_id')->constrained('washers');
+            $table->string('transaction_number');
             $table->float('total_cost');
+            $table->boolean('is_printed')->default(false);
+            $table->foreignId('washer_id')->constrained('washers');
             $table->softDeletes();
             $table->timestamps();
         });
