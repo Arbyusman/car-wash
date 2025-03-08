@@ -57,3 +57,15 @@ npm run build
 
 Proyek kini siap dijalankan di lingkungan lokal Anda. 🚀
 
+
+### Users
+
+#### Role: Admin  
+- **Email:** `admin@gmail.com`  
+- **Password:** `pass1234`  
+
+#### Role: Kasir  
+- **Email:** `kasir@gmail.com`  
+- **Password:** `pass1234`  
+
+

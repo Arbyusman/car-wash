@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\ReportWashTransactionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
@@ -72,6 +73,11 @@ Route::middleware(['role_web:1', 'verified'])
 
         Route::resource('logs', LogController::class)->except(['create', 'show', 'edit', 'update', 'destroy']);
 
+        Route::controller(ReportWashTransactionController::class)->group(function () {
+            Route::get('wash-transaction/reports', 'index')->name('wash-transaction-reports.index');
+            Route::get('wash-transaction/download', 'generateReport')->name('wash-transaction-reports.report');
+        });
         Route::get('wash-transactions/invoice/{id}', [WashTransactionController::class, 'generateInvoice'])->name('wash-transactions.invoice');
         Route::resource('wash-transactions', WashTransactionController::class)->except(['create', 'show', 'edit']);
+
     });
