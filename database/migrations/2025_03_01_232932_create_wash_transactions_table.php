@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('wash_transactions', function (Blueprint $table) {
             $table->id();
             $table->string('transaction_number');
+            $table->float('payment_amount');
+            $table->float('change_amount');
             $table->float('total_cost');
             $table->boolean('is_printed')->default(false);
             $table->foreignId('washer_id')->constrained('washers');

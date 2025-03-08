@@ -23,6 +23,12 @@ class DatabaseSeeder extends Seeder
             // WEB
             SettingSeeder::class,
 
+            // MASTER
+
+            VehicleTypeSeeder::class,
+            VehicleSeeder::class,
+            WasherSeeder::class,
+
         ]);
 
     }
