@@ -12,11 +12,12 @@ trait LogTrait
 
         $type = match ($request->method()) {
             'POST' => $request->is('login') ? 'login' : ($request->is('logout') ? 'logout' : 'add'),
-            'PUT' => 'edit',
-            default => 'delete'
+            'PUT', 'PATCH' => 'edit',
+            'DELETE' => 'delete',
+            default => 'view'
         };
 
-        if (strpos($table_id, ',')) {
+        if (strpos((string) $table_id, ',')) {
             $table_id = '"'.$table_id.'"';
         }
 

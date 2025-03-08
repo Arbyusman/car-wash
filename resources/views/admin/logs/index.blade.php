@@ -52,7 +52,7 @@
                         </tbody>
                     </table>
 
-                    {{ $logs->links() }}
+                    {{ $logs->links('pagination::bootstrap-5') }}
 
                 </div>
 

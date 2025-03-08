@@ -25,7 +25,9 @@ use Illuminate\Support\Facades\Route;
 */
 // Auth::routes(['verify' => true]);
 
-Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified']);
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard')
+    ->middleware(['auth', 'verified']);
 
 Route::get('/error', function () {
     abort(500);
@@ -77,7 +79,11 @@ Route::middleware(['role_web:1', 'verified'])
             Route::get('wash-transaction/reports', 'index')->name('wash-transaction-reports.index');
             Route::get('wash-transaction/download', 'generateReport')->name('wash-transaction-reports.report');
         });
-        Route::get('wash-transactions/invoice/{id}', [WashTransactionController::class, 'generateInvoice'])->name('wash-transactions.invoice');
-        Route::resource('wash-transactions', WashTransactionController::class)->except(['create', 'show', 'edit']);
-
     });
+
+Route::middleware(['role_web:1,2', 'verified'])->group(function () {
+    Route::get('wash-transactions/invoice/{id}', [WashTransactionController::class, 'generateInvoice'])->name('wash-transactions.invoice');
+    Route::resource('wash-transactions', WashTransactionController::class)->except(['create', 'show', 'edit']);
+
+    Route::resource('logs', LogController::class)->except(['create', 'show', 'edit', 'update', 'destroy']);
+});

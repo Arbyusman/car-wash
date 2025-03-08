@@ -13,7 +13,5 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        'fingerprint/store',
-        'fingerprint/add',
     ];
 }

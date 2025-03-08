@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('subject');
             $table->string('url', 500);
-            $table->enum('type', ['login', 'logout', 'add', 'edit', 'delete']);
+            $table->enum('type', ['login', 'logout', 'add', 'edit', 'delete', 'view']);
             $table->string('table')->nullable();
             $table->string('table_id', 500)->nullable();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();

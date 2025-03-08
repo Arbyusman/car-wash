@@ -57,7 +57,7 @@
                     </div>
                 </div>
             @endif
-            @if (in_array(Auth::user()->role_id, [2]))
+            @if (in_array(Auth::user()->role_id, [1,2]))
 
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <div class="menu-item">
