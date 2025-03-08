@@ -36,7 +36,6 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['role_web:1', 'verified'])
     ->group(function () {
-        // User
         Route::controller(UserController::class)->group(function () {
             Route::get('admin/users', 'index')->name('users.index');
             Route::get('admin/users/create', 'create')->name('users.create');

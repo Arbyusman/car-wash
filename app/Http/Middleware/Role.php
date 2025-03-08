@@ -15,9 +15,12 @@ class Role
      */
     public function handle(Request $request, Closure $next, ...$roles)
     {
+        if (! Auth::check()) {
+            return redirect()->route('login');
+        }
 
         if (! in_array(Auth::user()->role_id, $roles)) {
-            return redirect('dashboard');
+            return redirect()->route('dashboard');
         }
 
         return $next($request);

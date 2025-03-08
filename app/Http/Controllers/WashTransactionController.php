@@ -41,8 +41,12 @@ class WashTransactionController extends Controller
             'vehicle_id' => 'required|numeric|exists:vehicles,id',
             'plate_number' => 'required|string|max:255',
             'additional_cost' => 'required|string|max:255',
+            'payment_amount' => 'required|string|max:255',
+            'change_amount' => 'required|string|max:255',
         ]);
         $additionalCost = $this->convertToInteger($request->additional_cost);
+        $paymentAmount = $this->convertToInteger($request->payment_amount);
+        $changeAmount = $this->convertToInteger($request->change_amount);
 
         if ($additionalCost < 0) {
             return back()->withErrors(['additional_cost' => 'Biaya tambahan tidak boleh negatif.']);
@@ -54,6 +58,8 @@ class WashTransactionController extends Controller
         $washTransaction = WashTransaction::create([
             'washer_id' => $request->washer_id,
             'total_cost' => $totalCost,
+            'payment_amount' => $paymentAmount,
+            'change_amount' => $changeAmount,
             'transaction_number' => $this->generateTransactionNumber(),
         ]);
 
@@ -72,16 +78,43 @@ class WashTransactionController extends Controller
      */
     public function update(Request $request, WashTransaction $washTransaction)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'vehicle_type_id' => 'required|numeric|exists:vehicle_types,id',
-            'cost' => 'required|string|max:255',
-            'washer_cost' => 'required|string|max:255',
-        ]);
-        $request->merge(['cost' => $this->convertToInteger($request->cost)]);
-        $request->merge(['washer_cost' => $this->convertToInteger($request->washer_cost)]);
 
-        $washTransaction->update($request->all());
+        if ($washTransaction->is_printed) {
+            return back()->withErrors('Data transaksi sudah dicetak, tidak bisa diubah.');
+        }
+
+        $request->validate([
+            'washer_id' => 'required|numeric|exists:washers,id',
+            'vehicle_id' => 'required|numeric|exists:vehicles,id',
+            'plate_number' => 'required|string|max:255',
+            'additional_cost' => 'required|string|max:255',
+            'payment_amount' => 'required|string|max:255',
+            'change_amount' => 'required|string|max:255',
+        ]);
+        $additionalCost = $this->convertToInteger($request->additional_cost);
+        $paymentAmount = $this->convertToInteger($request->payment_amount);
+        $changeAmount = $this->convertToInteger($request->change_amount);
+
+        if ($additionalCost < 0) {
+            return back()->withErrors(['additional_cost' => 'Biaya tambahan tidak boleh negatif.']);
+        }
+
+        $vehicleCost = $this->convertToInteger(Vehicle::find($request->vehicle_id)->cost);
+        $totalCost = $vehicleCost + $additionalCost;
+
+        $washTransaction->update([
+            'washer_id' => $request->washer_id,
+            'total_cost' => $totalCost,
+            'payment_amount' => $paymentAmount,
+            'change_amount' => $changeAmount,
+        ]);
+
+        $washTransaction->washTransactionDetail->update([
+            'wash_transaction_id' => $washTransaction->id,
+            'vehicle_id' => $request->vehicle_id,
+            'plate_number' => $request->plate_number,
+            'additional_cost' => $additionalCost,
+        ]);
 
         return redirect()->route('wash-transactions.index')->with('success', 'Wash Transaction updated successfully');
     }
@@ -91,6 +124,9 @@ class WashTransactionController extends Controller
      */
     public function destroy(WashTransaction $washTransaction)
     {
+        if ($washTransaction->is_printed) {
+            return back()->withErrors('Data transaksi sudah dicetak, tidak bisa dihapus.');
+        }
         $washTransaction->delete();
 
         return redirect()->route('wash-transactions.index')->with('success', 'Wash Transaction deleted successfully');
