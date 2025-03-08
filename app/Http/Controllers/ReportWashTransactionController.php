@@ -44,25 +44,29 @@ class ReportWashTransactionController extends Controller
         $cashierId = $request->cashier_id;
         $dateRange = $request->input('date-range');
 
-        if ($dateRange) {
+        $startDate = null;
+        $endDate = null;
+
+        if (filled($dateRange)) {
             [$startDate, $endDate] = explode(' - ', $dateRange);
-            $startDate = Carbon::createFromFormat('d/m/Y', trim($startDate))->startOfDay();
-            $endDate = Carbon::createFromFormat('d/m/Y', trim($endDate))->endOfDay();
+
+            $startDate = Carbon::createFromFormat('d/m/Y', trim($startDate))->startOfDay()->format('Y-m-d H:i:s');
+            $endDate = Carbon::createFromFormat('d/m/Y', trim($endDate))->endOfDay()->format('Y-m-d H:i:s');
         }
 
         $washTransactions = WashTransaction::with(['washTransactionDetail', 'washer', 'washTransactionDetail.vehicle', 'createdBy', 'updatedBy'])
-            ->when($vehicleId, function ($query) use ($vehicleId) {
+            ->when(filled($vehicleId), function ($query) use ($vehicleId) {
                 return $query->whereHas('washTransactionDetail.vehicle', function ($q) use ($vehicleId) {
                     $q->where('id', $vehicleId);
                 });
             })
-            ->when($washerId, function ($query) use ($washerId) {
+            ->when(filled($washerId), function ($query) use ($washerId) {
                 return $query->where('washer_id', $washerId);
             })
-            ->when($dateRange, function ($query) use ($startDate, $endDate) {
+            ->when(filled($startDate) && filled($endDate), function ($query) use ($startDate, $endDate) {
                 return $query->whereBetween('created_at', [$startDate, $endDate]);
             })
-            ->when($dateRange, function ($query) use ($cashierId) {
+            ->when(filled($cashierId), function ($query) use ($cashierId) {
                 return $query->where('created_by', $cashierId);
             })
             ->orderBy('created_at', 'desc')

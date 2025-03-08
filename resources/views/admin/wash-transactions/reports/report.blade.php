@@ -65,25 +65,18 @@
     <div class="container">
         <!-- Header -->
         <div class="header" style="text-align: center; margin-bottom: 20px;">
-            <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
+            <div style="display: flex; flex: row; align-items: center; justify-content: between; width: 100% !important;">
                 <!-- Logo -->
-                <div style="width: 20%; text-align: center;">
-                    <img class="logo" src="{{ public_path('storage/images/' . setting()->small_icon) }}" alt="Logo"
-                        style="max-height: 80px;">
-                </div>
-
                 <!-- Title and Address -->
-                <div style="width: 90%; text-align: center;">
-                    <h2 style="margin: 0;">{{ setting()->name }}</h2>
-                    <p style="margin: 0;">{{ setting()->address }}</p>
-                    <h3 style="margin-top: 10px; text-decoration: underline;">Laporan Transaksi</h3>
+                <div style="width: 100%; text-align: center;">
+                    <h2 style="margin: 0;text-align: center !important;">{{ setting()->name }}</h2>
+                    <p style="margin: 0;text-align: center !important;">{{ setting()->address }}</p>
                 </div>
 
-                <!-- Right Spacing -->
-                <div style="width: 20%;"></div>
             </div>
 
         </div>
+        <h3 style="margin-top: 10px;text-align: center !important;">Laporan Transaksi</h3>
 
 
         <!-- Table -->
