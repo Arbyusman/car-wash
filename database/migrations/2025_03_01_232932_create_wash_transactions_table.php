@@ -19,6 +19,9 @@ return new class extends Migration
             $table->float('total_cost');
             $table->boolean('is_printed')->default(false);
             $table->foreignId('washer_id')->constrained('washers');
+            $table->foreignId('created_by')->nullable()->constrained('users');
+            $table->foreignId('updated_by')->nullable()->constrained('users');
+            $table->foreignId('deleted_by')->nullable()->constrained('users');
             $table->softDeletes();
             $table->timestamps();
         });

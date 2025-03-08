@@ -36,14 +36,15 @@
                         <thead>
                             <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                                 <th style="width: 2%">No</th>
-                                <th style="width: 10%">No Transaksi</th>
-                                <th style="width: 10%">Pekerja</th>
-                                <th style="width: 10%">Tanggal</th>
-                                <th style="width: 10%">Biaya</th>
-                                <th style="width: 10%">Biaya Tambahan</th>
-                                <th style="width: 10%">Total</th>
-                                <th style="width: 10%">Total Bayar</th>
-                                <th style="width: 10%">Total Kembalian</th>
+                                <th style="width: 8%">Kasir</th>
+                                <th style="width: 8%">No Transaksi</th>
+                                <th style="width: 8%">Pekerja</th>
+                                <th style="width: 8%">Tanggal</th>
+                                <th style="width: 8%">Biaya</th>
+                                <th style="width: 8%">Biaya Tambahan</th>
+                                <th style="width: 8%">Total</th>
+                                <th style="width: 8%">Total Bayar</th>
+                                <th style="width: 8%">Total Kembalian</th>
                                 <th style="width: 15%">Actions</th>
                             </tr>
                         </thead>
@@ -54,11 +55,12 @@
                             @endphp
 
                             @if ($washTransactions->isEmpty())
-                                <x-no-data-row colspan="10" message="Data tidak ditemukan" />
+                                <x-no-data-row colspan="11" message="Data tidak ditemukan" />
                             @else
                                 @foreach ($washTransactions as $washTransaction)
                                     <tr>
                                         <td>{{ $no++ }}</td>
+                                        <td>{{ $washTransaction->updatedBy ? $washTransaction->updatedBy->name : $washTransaction->createdBy->name }}</td>
                                         <td>{{ $washTransaction->transaction_number ?? 'N/A' }}</td>
                                         <td>{{ $washTransaction->washer->name ?? 'N/A' }}</td>
                                         <td>{{ $washTransaction->created_at ? \Carbon\Carbon::parse($washTransaction->created_at)->locale('id')->translatedFormat('l, d F Y H:i') . ' WITA' : 'N/A' }}
@@ -72,9 +74,11 @@
                                         <td>{{ toRupiah($washTransaction->payment_amount ?? 0) }}</td>
                                         <td>{{ toRupiah($washTransaction->change_amount ?? 0) }}</td>
                                         <td>
-                                            <a href="" title="Print Nota" class="btn btn-icon btn-secondary">
+                                            <a href="{{ route('wash-transactions.invoice', ['id' => Crypt::encrypt($washTransaction->id)]) }}"
+                                                target="_blank" title="Print Nota" class="btn btn-icon btn-secondary">
                                                 <i class="fas far fa-file-alt"></i>
                                             </a>
+
                                             @if (!$washTransaction->is_printed)
                                                 <button title="Ubah Transaksi" type="button"
                                                     class="btn btn-icon btn-warning" data-bs-toggle="modal"
@@ -97,9 +101,7 @@
                                                                     value="Kendaraan" />
                                                                 <select class="form-select" data-control="select2"
                                                                     data-dropdown-parent="#update-wash-transaction{{ $washTransaction->id }}"
-                                                                    name="vehicle_id"
-                                                                    id="edit_vehicle_id"
-                                                                    required>
+                                                                    name="vehicle_id" id="edit_vehicle_id" required>
                                                                     <option value="" readonly>Pilih Kendaraan
                                                                     </option>
                                                                     @foreach ($vehicles as $vehicle)
@@ -144,8 +146,8 @@
                                                             <div class="fv-row mb-4">
                                                                 <x-label class="mb-2 fs-6 fw-semibold" value="Biaya" />
                                                                 <x-input class="idr-currency" type="text"
-                                                                    id="edit_cost" name="cost" value="{{ $washTransaction->washTransactionDetail->vehicle->cost ?? '' }}"
-
+                                                                    id="edit_cost" name="cost"
+                                                                    value="{{ $washTransaction->washTransactionDetail->vehicle->cost ?? '' }}"
                                                                     placeholder="Biaya" readonly />
                                                             </div>
 
@@ -194,7 +196,7 @@
                                                                 <x-input class="idr-currency" type="text"
                                                                     id="edit_total_cost" name="total_cost"
                                                                     value="{{ $washTransaction->total_cost ?? '' }}"
-                                                                     placeholder="Total " readonly />
+                                                                    placeholder="Total " readonly />
                                                             </div>
 
                                                             <div class="fv-row mb-4">
@@ -203,7 +205,7 @@
                                                                 <x-input class="idr-currency" type="text"
                                                                     id="edit_payment_amount" name="payment_amount"
                                                                     value="{{ $washTransaction->payment_amount ?? '' }}"
-                                                                     placeholder="Total Bayar" />
+                                                                    placeholder="Total Bayar" />
                                                             </div>
 
                                                             <div class="fv-row mb-4">
@@ -212,8 +214,7 @@
                                                                 <x-input class="idr-currency" type="text"
                                                                     id="edit_change_amount" name="change_amount"
                                                                     value="{{ $washTransaction->change_amount ?? '' }}"
-                                                                     placeholder="Jumlah Kembalian"
-                                                                    readonly />
+                                                                    placeholder="Jumlah Kembalian" readonly />
                                                             </div>
 
 
@@ -251,7 +252,9 @@
                                                                 <div class="row col-12 pt-8">
                                                                     <div
                                                                         class="row text-center justify-content-center align-items-center">
-                                                                        <h2>Menghapus Data Transaksi {{ $washTransaction->transaction_number }}</h2>
+                                                                        <h2>Menghapus Data Transaksi
+                                                                            {{ $washTransaction->transaction_number }}
+                                                                        </h2>
                                                                         <span class="text-muted"> Setelah dihapus, data
                                                                             Transaksi
                                                                             tidak
@@ -269,7 +272,6 @@
                                                         </form>
                                                     </div>
                                                 </div>
-
                                             @endif
 
 

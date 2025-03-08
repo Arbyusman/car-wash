@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('small_icon');
             $table->string('large_icon');
             $table->string('background_login');
+            $table->text('address');
             $table->softDeletes();
             $table->timestamps();
         });

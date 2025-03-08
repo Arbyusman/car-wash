@@ -32,6 +32,7 @@ class SettingController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'nullable|max:255',
             'short_name' => 'nullable|max:255',
+            'address' => 'nullable|max:255',
             'small_icon' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'large_icon' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'background_login' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',

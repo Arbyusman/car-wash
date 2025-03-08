@@ -19,6 +19,8 @@ class SettingSeeder extends Seeder
                 'small_icon' => 'default_logo.png',
                 'large_icon' => 'default_logo.png',
                 'background_login' => 'default_background.jpg',
+                'address' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus nihil fuga, voluptates in vel autem. Maiores tempora numquam ipsa nostrum!
+',
             ],
         ];
 

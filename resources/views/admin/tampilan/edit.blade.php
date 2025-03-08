@@ -1,4 +1,3 @@
-
 <x-default-layout>
     <div class="d-flex flex-column-fluid">
         <div class="container-fluid">
@@ -28,9 +27,8 @@
                                     <div class="col-lg-6 mt-5">
                                         <div class="">
                                             <label>Nama Aplikasi:</label>
-                                            <input value="{{ $setting->name }}" type="text"
-                                                class="form-control" name="name"
-                                                placeholder="Masukkan Nama Aplikasi" />
+                                            <input value="{{ $setting->name }}" type="text" class="form-control"
+                                                name="name" placeholder="Masukkan Nama Aplikasi" />
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mt-5">
@@ -45,10 +43,11 @@
                                 <div class="form-group row">
                                     <div class="col-lg-6 mt-5">
                                         <div class="">
-                                            <label>URL Absen:</label>
-                                            <input value="{{ $setting->base_url_absens }}" type="text"
-                                                class="form-control" name="base_url_absens"
-                                                placeholder="Masukkan URL absen Aplikasi" />
+                                            <label>Alamat:</label>
+                                            <textarea  rows="3"  type="text" class="form-control" name="address"
+                                                placeholder="Masukkan Alamat">
+                                                {{ $setting->address }}
+                                            </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -61,6 +60,7 @@
                                                     .image-input-placeholder {
                                                         background-image: url({{ asset('storage/images/' . $setting->small_icon) ?? 'assets/media/svg/files/blank-image.svg' }});
                                                     }
+
                                                     [data-bs-theme="dark"] .image-input-placeholder {
                                                         background-image: url({{ asset('storage/images/' . $setting->small_icon) ?? 'assets/media/svg/files/blank-image.svg' }});
                                                     }
@@ -68,7 +68,8 @@
                                                 <div class="image-input image-input-outline image-input-placeholder image-input-empty image-input-empty"
                                                     data-kt-image-input="true">
                                                     <div class="image-input-wrapper w-150px h-150px"
-                                                        style="background-image: url({{ asset('storage/images/' . $setting->small_icon) ?? 'assets/media/svg/files/blank-image.svg' }}"></div>
+                                                        style="background-image: url({{ asset('storage/images/' . $setting->small_icon) ?? 'assets/media/svg/files/blank-image.svg' }}">
+                                                    </div>
                                                     <label
                                                         class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                                         data-kt-image-input-action="change" data-bs-toggle="tooltip"
@@ -111,6 +112,7 @@
                                                     .image-input-placeholder {
                                                         background-image: url({{ asset('storage/images/' . $setting->large_icon) ?? 'assets/media/svg/files/blank-image.svg' }});
                                                     }
+
                                                     [data-bs-theme="dark"] .image-input-placeholder {
                                                         background-image: url({{ asset('storage/images/' . $setting->large_icon) ?? 'assets/media/svg/files/blank-image.svg' }});
                                                     }
@@ -118,7 +120,8 @@
                                                 <div class="image-input image-input-outline image-input-placeholder image-input-empty image-input-empty"
                                                     data-kt-image-input="true">
                                                     <div class="image-input-wrapper w-150px h-150px"
-                                                        style="background-image: url({{ asset('storage/images/' . $setting->large_icon) ?? 'assets/media/svg/files/blank-image.svg' }}"></div>
+                                                        style="background-image: url({{ asset('storage/images/' . $setting->large_icon) ?? 'assets/media/svg/files/blank-image.svg' }}">
+                                                    </div>
                                                     <label
                                                         class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                                         data-kt-image-input-action="change" data-bs-toggle="tooltip"
@@ -164,6 +167,7 @@
                                                     .image-input-placeholder {
                                                         background-image: url({{ asset('storage/images/' . $setting->background_login) ?? 'assets/media/svg/files/blank-image.svg' }});
                                                     }
+
                                                     [data-bs-theme="dark"] .image-input-placeholder {
                                                         background-image: url({{ asset('storage/images/' . $setting->background_login) ?? 'assets/media/svg/files/blank-image.svg' }});
                                                     }
@@ -171,7 +175,8 @@
                                                 <div class="image-input image-input-outline image-input-placeholder image-input-empty image-input-empty"
                                                     data-kt-image-input="true">
                                                     <div class="image-input-wrapper w-150px h-150px"
-                                                        style="background-image: url({{ asset('storage/images/' . $setting->background_login) ?? 'assets/media/svg/files/blank-image.svg' }}"></div>
+                                                        style="background-image: url({{ asset('storage/images/' . $setting->background_login) ?? 'assets/media/svg/files/blank-image.svg' }}">
+                                                    </div>
                                                     <label
                                                         class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                                         data-kt-image-input-action="change" data-bs-toggle="tooltip"

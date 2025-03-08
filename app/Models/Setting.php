@@ -16,6 +16,6 @@ class Setting extends Model
         'small_icon',
         'large_icon',
         'background_login',
-        'base_url_absens',
+        'address',
     ];
 }

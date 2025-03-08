@@ -19,6 +19,7 @@
     <meta property="og:type" content="article" />
     <meta property="og:title" content="" />
 
+
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 
     {!! includeFavicon() !!}

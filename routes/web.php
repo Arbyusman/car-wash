@@ -69,6 +69,9 @@ Route::middleware(['role_web:1', 'verified'])
         Route::resource('vehicle-types', VehicleTypeController::class)->except(['create', 'show', 'edit']);
         Route::resource('vehicles', VehicleController::class)->except(['create', 'show', 'edit']);
         Route::resource('washers', WasherController::class)->except(['create', 'show', 'edit']);
-        Route::resource('wash-transactions', WashTransactionController::class)->except(['create', 'show', 'edit']);
+
         Route::resource('logs', LogController::class)->except(['create', 'show', 'edit', 'update', 'destroy']);
+
+        Route::get('wash-transactions/invoice/{id}', [WashTransactionController::class, 'generateInvoice'])->name('wash-transactions.invoice');
+        Route::resource('wash-transactions', WashTransactionController::class)->except(['create', 'show', 'edit']);
     });
