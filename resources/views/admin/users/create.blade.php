@@ -70,21 +70,22 @@
                                                         </i>
                                                     </span>
                                                 </div>
+                                                @error('avatar')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <div class="mb-4">
+                                        <div class="my-4">
                                             <label>Nama Lengkap:</label>
                                             <input type="text" class="form-control" name="name"
                                                 placeholder="Masukkan Nama Lengkap" />
+                                            @error('name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
-                                        <div class="mb-4">
-                                            <label>NIM:</label>
-                                            <input type="text" class="form-control" name="identification_number"
-                                                placeholder="Masukkan NIM" />
-                                        </div>
-                                        <div class="">
+                                        <div class="my-4">
                                             <label>Jenis Kelamin:</label>
                                             <select type="" class="form-control" name="jenis_kelamin"
                                                 placeholder="Masukkan Jenis Kelamin">
@@ -95,16 +96,15 @@
                                                     Perempuan
                                                 </option>
                                             </select>
+                                            @error('jenis_kelamin')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
-                                        <div class="my-2">
+                                        <div class="my-4">
                                             <label>Role:</label>
                                             <div class="form-check form-check-custom form-check-solid">
                                                 @foreach ($role as $itemRole)
-                                                    @if ($fingerId && $itemRole->name === 'Admin' || $fingerId && $itemRole->name === 'Dosen'  )
-                                                        @continue
-                                                    @endif
-
                                                     <input class="form-check-input" style="margin-right:5px"
                                                         type="radio" value="{{ $itemRole->id }}"
                                                         id="role_{{ $itemRole->id }}" name="role" />
@@ -114,55 +114,51 @@
                                                     </label>
                                                 @endforeach
                                             </div>
+                                            @error('role_id')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
 
                                         </div>
-
-
-                                    </div>
-                                </div>
-
-                                <div class="form-group row ">
-                                    <div class="col-lg-6 ">
-                                        <label>No HP:</label>
-                                        <input type="phone" name="phone" class="form-control"
-                                            placeholder="Masukkan No HP" />
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <label>Email:</label>
-                                        <input type="email" class="form-control" name="email"
-                                            placeholder="Masukkan Email" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-6">
-                                        <label>Finger Print:</label>
-                                        <input type="text" id="finger_print_id" name="finger_print_id"
-                                            class="form-control" placeholder="Masukkan Finger Print"
-                                            value="{{ $fingerId ?? 0 }}" readonly />
-                                    </div>
-
-                                </div>
-
-                                @if (!$fingerId)
-                                    <div class="form-group row">
-                                        <div class="col-lg-6">
+                                        <div class="my-4">
+                                            <label>No HP:</label>
+                                            <input type="phone" name="phone" class="form-control"
+                                                placeholder="Masukkan No HP" />
+                                            @error('phone')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="my-4">
+                                            <label>Email</label>
+                                            <input type="email" name="email" class="form-control"
+                                                placeholder="Masukkan Email" />
+                                            @error('email')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="my-4">
                                             <label>Password:</label>
-                                            <input type="password" class="form-control" id="password"
-                                                placeholder="Masukkan Password" />
+                                            <input id="password" type="password" name="password" class="form-control"
+                                                placeholder="Masukkan  Password" />
+                                            @error('password')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="my-4">
                                             <label>Konfirmasi Password:</label>
-                                            <input type="password" class="form-control" id="confirmPassword"
-                                                name="password" placeholder="Masukkan Konfirmasi Password" />
-                                            <p id="passwordMatchMessage" style="color: red;"></p>
+                                            <input id="confirmPassword" type="password" name="password_confirmation"
+                                                class="form-control" placeholder="Masukkan Konfirmasi Password" />
+                                            @error('confirm_password')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
-                                    </div>
-                                @endif
 
+
+                                    </div>
+                                </div>
 
                                 <div class="card-footer">
-                                    <div class="row">
-                                        <div class="col-lg-6">
+                                    <div class="row justify-content-end">
+                                        <div class="col-lg-6 justify-content-end">
                                             <button type="submit" id="kt_notify_btn"
                                                 class="btn btn-primary me-2">Simpan</button>
                                             <button type="reset" class="btn btn-secondary">Batal</button>
@@ -178,65 +174,25 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    @push('scripts')
+        <script>
+            const imageInput = document.querySelector('.image-input-wrapper');
+            const fileInput = document.querySelector('input[name="avatar"]');
 
-    <script>
-        const imageInput = document.querySelector('.image-input-wrapper');
-        const fileInput = document.querySelector('input[name="avatar"]');
-
-        fileInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    imageInput.style.backgroundImage = `url('${e.target.result}')`;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                imageInput.style.backgroundImage =
-                    `url('{{ Auth::user()->foto ? asset('image/foto/' . Auth::user()->foto) : asset('media/users/blank.png') }}')`;
-            }
-        });
-    </script>
-    <script>
-        const passwordInput = document.getElementById('password');
-        const confirmPasswordInput = document.getElementById('confirmPassword');
-        const passwordMatchMessage = document.getElementById('passwordMatchMessage');
-
-        confirmPasswordInput.addEventListener('input', () => {
-            const password = passwordInput.value;
-            const confirmPassword = confirmPasswordInput.value;
-
-            if (password === confirmPassword) {
-                passwordMatchMessage.textContent = 'Password cocok.';
-                passwordMatchMessage.style.color = 'green';
-            } else {
-                passwordMatchMessage.textContent = 'Password tidak cocok.';
-                passwordMatchMessage.style.color = 'red';
-            }
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#ambil-data').on('click', function() {
-                $.ajax({
-                    url: '{{ route('fingerprint.add') }}',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        console.log("data", data)
-                        if (data.status === 'success') {
-                            $('#finger_print_id').val(data.data);
-                        } else {
-                            alert('Error: ' + data.message);
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.error('Error:', textStatus, errorThrown);
-                        alert('Failed to fetch fingerprint data.');
-                    }
-                });
+            fileInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        imageInput.style.backgroundImage = `url('${e.target.result}')`;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    imageInput.style.backgroundImage =
+                        `url('{{ Auth::user()->foto ? asset('image/foto/' . Auth::user()->foto) : asset('media/users/blank.png') }}')`;
+                }
             });
-        });
-    </script>
+        </script>
+    @endpush
+
 </x-default-layout>

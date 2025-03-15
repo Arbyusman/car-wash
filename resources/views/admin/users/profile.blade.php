@@ -78,11 +78,6 @@
                                             <input value="{{ $user->name }}" type="text" class="form-control"
                                                 name="name" placeholder="Masukkan Nama Lengkap" />
                                         </div>
-                                        <div class="mb-4">
-                                            <label>NRP/NIP:</label>
-                                            <input value="{{ $user->nrp }}" type="text" class="form-control"
-                                                name="nrp" placeholder="Masukkan NRP" />
-                                        </div>
                                         <div class="">
                                             <label>Jenis Kelamin:</label>
                                             <select type="" class="form-control" name="jenis_kelamin"

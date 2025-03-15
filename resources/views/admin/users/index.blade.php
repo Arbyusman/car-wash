@@ -19,11 +19,21 @@
                             Refresh
                         </a>
 
+                        <a title="Tambah Kendaraan" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#add-vehicle">
+                            <i class="ki-duotone ki-plus fs-1 ">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>
+                            Tambah
+                        </a>
+
 
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#impor">
+                        {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#impor">
                             Import Users
-                        </button>
+                        </button> --}}
 
                         <!-- Modal -->
                         <div class="modal fade" id="impor" tabindex="-1" aria-labelledby="imporLabel"
@@ -65,7 +75,6 @@
                             <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                                 <th style="width: 5%">NO</th>
                                 <th style="width: 20%">Nama Lengkap</th>
-                                <th style="width: 10%">NIM</th>
                                 <th style="width: 20%">Email</th>
                                 <th style="width: 20%">Actions</th>
                             </tr>
@@ -79,17 +88,16 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->identification_number ?? 'N/A' }}</td>
                                     <td>{{ $item->email ?? 'N/A' }}</td>
                                     <td>
-                                        {{-- <a href="{{ route('users.edit', ['id' => Crypt::encrypt($item->id)]) }}"
+                                        <a href="{{ route('users.edit', ['id' => Crypt::encrypt($item->id)]) }}"
                                             title="Edit users" class="btn btn-icon btn-success">
                                             <i class="ki-duotone ki-user-edit fs-1">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
                                                 <span class="path3"></span>
                                             </i>
-                                        </a> --}}
+                                        </a>
                                         <button title="Hapus User" type="button" class="btn btn-danger"
                                             data-bs-toggle="modal" data-bs-target="#kt_modal{{ $item->id }}">
                                             <i class="fas fa-trash-alt"></i>

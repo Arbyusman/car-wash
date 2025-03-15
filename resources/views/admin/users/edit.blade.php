@@ -74,88 +74,99 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <div class="mb-4">
+                                        <div class="my-4">
                                             <label>Nama Lengkap:</label>
-                                            <input value="{{ $user->name }}" type="text" class="form-control"
-                                                name="name" placeholder="Masukkan Nama Lengkap" />
+                                            <input type="text" class="form-control" name="name"
+                                                value="{{ $user->name }}" placeholder="Masukkan Nama Lengkap" />
+                                            @error('name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
-                                        <div class="mb-4">
-                                            <label>NIP/NIDN:</label>
-                                            <input value="{{ $user->nrp }}" type="text" class="form-control"
-                                                name="identification_number" placeholder="Masukkan NIP/NIDN" />
-                                        </div>
-                                        <div class="">
+                                        <div class="my-4">
                                             <label>Jenis Kelamin:</label>
                                             <select type="" class="form-control" name="jenis_kelamin"
                                                 placeholder="Masukkan Jenis Kelamin">
                                                 <option value="Laki-laki"
-                                                    @if ($user->jenis_kelamin == 'Laki-laki') selected @endif>
-                                                    Laki-laki</option>
+                                                    {{ $user->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>
+                                                    Laki-laki
+                                                </option>
                                                 <option value="Perempuan"
-                                                    @if ($user->jenis_kelamin == 'Perempuan') selected @endif>
-                                                    Perempuan</option>
+                                                    {{ $user->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
+                                                    Perempuan
+                                                </option>
                                             </select>
+                                            @error('jenis_kelamin')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
-                                        <div class="my-2">
+                                        <div class="my-4">
                                             <label>Role:</label>
                                             <div class="form-check form-check-custom form-check-solid">
                                                 @foreach ($role as $itemRole)
-                                                    <input class="form-check-input " style="margin-right:5px "
+                                                    <input class="form-check-input" style="margin-right:5px"
                                                         type="radio" value="{{ $itemRole->id }}"
-                                                        id="role_{{ $itemRole->id }}" name="role"
-                                                        @if ($itemRole->id == $user->role_id) checked @endif />
-                                                    <label class="form-check-label " style="margin-right:5px "
+                                                        {{ $user->role_id == $itemRole->id ? 'checked' : '' }}
+                                                        id="role_{{ $itemRole->id }}" name="role" />
+                                                    <label class="form-check-label" style="margin-right:5px"
                                                         for="role_{{ $itemRole->id }}">
                                                         {{ $itemRole->name }}
                                                     </label>
                                                 @endforeach
+
+                                            </div>
+                                            @error('role_id')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+
+                                        </div>
+                                        <div class="my-4">
+                                            <label>No HP:</label>
+                                            <input type="phone" name="phone" class="form-control"
+                                                value="{{ $user->phone }}" placeholder="Masukkan No HP" />
+                                            @error('phone')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="my-4">
+                                            <label>Email</label>
+                                            <input type="email" name="email" class="form-control"
+                                                value="{{ $user->email }}" placeholder="Masukkan Email" />
+                                            @error('email')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="my-4">
+                                            <label>Password:</label>
+                                            <input id="password" type="password" name="password" class="form-control"
+                                                placeholder="Masukkan  Password" />
+                                            @error('password')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="my-4">
+                                            <label>Konfirmasi Password:</label>
+                                            <input id="confirmPassword" type="password" name="password_confirmation"
+                                                class="form-control" placeholder="Masukkan Konfirmasi Password" />
+                                            @error('confirm_password')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="card-footer">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <button type="submit" id="kt_notify_btn"
+                                                    class="btn btn-primary me-2">Simpan</button>
+                                                <button type="reset" class="btn btn-secondary">Batal</button>
                                             </div>
                                         </div>
-
-                                        <div class="my-2">
-                                            <label>Pangkat:</label>
-                                            <div class="form-check form-check-custom form-check-solid">
-                                                <select class="form-control" name="police_rank_id">
-                                                    @foreach ($policeRank as $rank)
-                                                        <option value="{{ $rank->id }}"
-                                                            @if ($rank->id == $user->police_rank_id) selected @endif>
-                                                            {{ $rank->name ?? 'N/A' }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
-
-                                <div class="form-group row ">
-                                    <div class="col-lg-6 ">
-                                        <label>No HP:</label>
-                                        <input value="{{ $user->phone }}" type="phone" name="phone"
-                                            class="form-control" placeholder="Masukkan No HP" />
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <label>Email:</label>
-                                        <input value="{{ $user->email }}" type="email" class="form-control"
-                                            name="email" placeholder="Masukkan Email" readonly />
-                                    </div>
-                                </div>
-
-
-
-
-                                <div class="card-footer">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <button type="submit" id="kt_notify_btn"
-                                                class="btn btn-primary me-2">Simpan</button>
-                                            <button type="reset" class="btn btn-secondary">Batal</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </form>
                     </div>
                 </div>
