@@ -8,7 +8,7 @@
 
 <head>
     <base href="" />
-    <title>{{ config('app.name', $setting->short_application_name ?? 'N/A') | config('app.name' ?? 'N/A') }}</title>
+    <title>{{ config('app.name', $setting->name ?? 'N/A') | config('app.name' ?? 'N/A') }}</title>
     <link rel="icon" href="{{ asset('storage/images/' . $setting->small_icon) }}" type="image/x-icon">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8" />

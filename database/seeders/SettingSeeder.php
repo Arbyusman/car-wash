@@ -14,8 +14,8 @@ class SettingSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'Car Wash',
-                'short_name' => 'Car Wash',
+                'name' => 'Aden Car Wash',
+                'short_name' => 'Aden Car Wash',
                 'small_icon' => 'default_logo.png',
                 'large_icon' => 'default_logo.png',
                 'background_login' => 'default_background.jpg',

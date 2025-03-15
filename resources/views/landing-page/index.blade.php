@@ -3,21 +3,42 @@
 
 <head>
     <meta charset="utf-8">
-    <title>AutoWash - Car Wash Website Template</title>
+    <title>{{ setting()->name }}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free Website Template" name="keywords">
     <meta content="Free Website Template" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <title>{{ config('app.name', $setting->name ?? 'N/A') | config('app.name' ?? 'N/A') }}</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
 
-    <!-- CSS Libraries -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+
+    {!! includeFavicon() !!}
+
+    <!--begin::Fonts-->
+    {!! includeFonts() !!}
+    <!--end::Fonts-->
+
+    <!--begin::Global Stylesheets Bundle(used by all pages)-->
+    @foreach (getGlobalAssets('css') as $path)
+        {!! sprintf('<link rel="stylesheet" href="%s">', asset($path)) !!}
+    @endforeach
+    <!--end::Global Stylesheets Bundle-->
+
+    <!--begin::Vendor Stylesheets(used by this page)-->
+    @foreach (getVendors('css') as $path)
+        {!! sprintf('<link rel="stylesheet" href="%s">', asset($path)) !!}
+    @endforeach
+    <!--end::Vendor Stylesheets-->
+
+    <!--begin::Custom Stylesheets(optional)-->
+    @foreach (getCustomCss() as $path)
+        {!! sprintf('<link rel="stylesheet" href="%s">', asset($path)) !!}
+    @endforeach
+    <!--end::Custom Stylesheets-->
+    @stack('styles')
+
     <link href="{{ asset('assets/landing-page/lib/flaticon/font/flaticon.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/landing-page/lib/animate/animate.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/landing-page/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
@@ -28,14 +49,19 @@
 
 <body>
     <!-- Top Bar Start -->
-    <div class="top-bar">
+    <div class="top-bar py-4">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-4 col-md-12">
                     <div class="logo">
-                        <a href="index.html">
-                            <h1>Auto<span>Wash</span></h1>
-                            <!-- <img src="img/logo.jpg" alt="Logo"> -->
+                        @php
+                            $name = setting()->name;
+                            $words = explode(' ', trim($name), 2);
+                            $firstWord = $words[0] ?? '';
+                            $remainingWords = $words[1] ?? '';
+                        @endphp
+                        <a href="/">
+                            <h1>{{ $firstWord }}<span> {{ $remainingWords }}</span></h1>
                         </a>
                     </div>
                 </div>
@@ -82,7 +108,7 @@
     <!-- Top Bar End -->
 
     <!-- Nav Bar Start -->
-    <div class="nav-bar">
+    <div class="nav-bar py-4">
         <div class="container">
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
                 <a href="#" class="navbar-brand">MENU</a>
@@ -92,24 +118,14 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="service.html" class="nav-item nav-link">Service</a>
-                        <a href="price.html" class="nav-item nav-link">Price</a>
-                        <a href="location.html" class="nav-item nav-link">Washing Points</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu">
-                                <a href="blog.html" class="dropdown-item">Blog Grid</a>
-                                <a href="single.html" class="dropdown-item">Detail Page</a>
-                                <a href="team.html" class="dropdown-item">Team Member</a>
-                                <a href="booking.html" class="dropdown-item">Schedule Booking</a>
-                            </div>
-                        </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="/" class="nav-item nav-link active">Home</a>
+                        <a href="#about" class="nav-item nav-link">About</a>
+                        <a href="#service" class="nav-item nav-link">Service</a>
+                        <a href="#price" class="nav-item nav-link">Price</a>
+                        <a href="#location" class="nav-item nav-link">Washing Points</a>
                     </div>
                     <div class="ml-auto">
-                        <a class="btn btn-custom" href="#">Get Appointment</a>
+                        <a class="btn btn-custom" href="/login">{{ !Auth()->user() ? 'Login' : 'Dashboard' }}</a>
                     </div>
                 </div>
             </nav>
@@ -119,12 +135,12 @@
 
 
     <!-- Carousel Start -->
-    <div class="carousel">
+    <div class="carousel" id="about">
         <div class="container-fluid">
             <div class="owl-carousel">
                 <div class="carousel-item">
                     <div class="carousel-img">
-                        <img src="img/carousel-1.jpg" alt="Image">
+                        <img src="{{ asset('assets/landing-page/imgcarousel-1.jpg') }}" alt="Image">
                     </div>
                     <div class="carousel-text">
                         <h3>Washing & Detailing</h3>
@@ -132,12 +148,11 @@
                         <p>
                             Lorem ipsum dolor sit amet elit. Phasellus ut mollis mauris. Vivamus egestas eleifend dui ac
                         </p>
-                        <a class="btn btn-custom" href="">Explore More</a>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <div class="carousel-img">
-                        <img src="img/carousel-2.jpg" alt="Image">
+                        <img src="{{ asset('assets/landing-page/imgcarousel-2.jpg') }}" alt="Image">
                     </div>
                     <div class="carousel-text">
                         <h3>Washing & Detailing</h3>
@@ -146,12 +161,11 @@
                             Morbi sagittis turpis id suscipit feugiat. Suspendisse eu augue urna. Morbi sagittis orci
                             sodales
                         </p>
-                        <a class="btn btn-custom" href="">Explore More</a>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <div class="carousel-img">
-                        <img src="img/carousel-3.jpg" alt="Image">
+                        <img src="{{ asset('assets/landing-page/imgcarousel-3.jpg') }}" alt="Image">
                     </div>
                     <div class="carousel-text">
                         <h3>Washing & Detailing</h3>
@@ -160,7 +174,6 @@
                             Sed ultrices, est eget feugiat accumsan, dui nibh egestas tortor, ut rhoncus nibh ligula
                             euismod quam
                         </p>
-                        <a class="btn btn-custom" href="">Explore More</a>
                     </div>
                 </div>
             </div>
@@ -170,12 +183,12 @@
 
 
     <!-- About Start -->
-    <div class="about">
+    <div class="about" id="about">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="about-img">
-                        <img src="img/about.jpg" alt="Image">
+                        <img src="{{ asset('assets/landing-page/imgcarousel-1.jpg') }}" alt="Image">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -205,66 +218,52 @@
 
 
     <!-- Service Start -->
-    <div class="service">
+    <div class="service" id="service">
         <div class="container">
             <div class="section-header text-center">
                 <p>What We Do?</p>
                 <h2>Premium Washing Services</h2>
             </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6">
                     <div class="service-item">
                         <i class="flaticon-car-wash-1"></i>
                         <h3>Exterior Washing</h3>
                         <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="service-item">
                         <i class="flaticon-car-wash"></i>
                         <h3>Interior Washing</h3>
                         <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="service-item">
                         <i class="flaticon-vacuum-cleaner"></i>
                         <h3>Vacuum Cleaning</h3>
                         <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="service-item">
                         <i class="flaticon-seat"></i>
                         <h3>Seats Washing</h3>
                         <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="service-item">
                         <i class="flaticon-car-service"></i>
                         <h3>Window Wiping</h3>
                         <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="service-item">
                         <i class="flaticon-car-service-2"></i>
                         <h3>Wet Cleaning</h3>
-                        <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="service-item">
-                        <i class="flaticon-car-wash"></i>
-                        <h3>Oil Changing</h3>
-                        <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="service-item">
-                        <i class="flaticon-brush-1"></i>
-                        <h3>Brake Reparing</h3>
                         <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
                     </div>
                 </div>
@@ -274,54 +273,8 @@
     <!-- Service End -->
 
 
-    <!-- Facts Start -->
-    <div class="facts" data-parallax="scroll" data-image-src="img/facts.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="facts-item">
-                        <i class="fa fa-map-marker-alt"></i>
-                        <div class="facts-text">
-                            <h3 data-toggle="counter-up">25</h3>
-                            <p>Service Points</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="facts-item">
-                        <i class="fa fa-user"></i>
-                        <div class="facts-text">
-                            <h3 data-toggle="counter-up">350</h3>
-                            <p>Engineers & Workers</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="facts-item">
-                        <i class="fa fa-users"></i>
-                        <div class="facts-text">
-                            <h3 data-toggle="counter-up">1500</h3>
-                            <p>Happy Clients</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="facts-item">
-                        <i class="fa fa-check"></i>
-                        <div class="facts-text">
-                            <h3 data-toggle="counter-up">5000</h3>
-                            <p>Projects Completed</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Facts End -->
-
-
     <!-- Price Start -->
-    <div class="price">
+    <div class="price" id="price">
         <div class="container">
             <div class="section-header text-center">
                 <p>Washing Plan</p>
@@ -395,75 +348,32 @@
 
 
     <!-- Location Start -->
-    <div class="location">
+    <div class="location" id="location">
         <div class="container">
             <div class="row">
-                <div class="col-lg-7">
+                <div class="col-lg-12 d-flex flex-column justify-content-center">
                     <div class="section-header text-left">
                         <p>Washing Points</p>
                         <h2>Car Washing & Care Points</h2>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
+                    <div class="row flex-row justify-content-center">
+                        <div class="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
                             <div class="location-item">
                                 <i class="fa fa-map-marker-alt"></i>
                                 <div class="location-text">
                                     <h3>Car Washing Point</h3>
-                                    <p>123 Street, New York, USA</p>
+                                    <p>Jl. Mekar Jaya 1, Punggolaka, Kec. Puuwatu, Kota Kendari, Sulawesi Tenggara 93115
+                                    </p>
                                     <p><strong>Call:</strong>+012 345 6789</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="location-item">
-                                <i class="fa fa-map-marker-alt"></i>
-                                <div class="location-text">
-                                    <h3>Car Washing Point</h3>
-                                    <p>123 Street, New York, USA</p>
-                                    <p><strong>Call:</strong>+012 345 6789</p>
-                                </div>
-                            </div>
+                        <div class="col-lg-6 col-md-6">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3980.227695478214!2d122.4932499!3d-3.9734848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d98f2dfe9a18065%3A0x575c442301059b78!2sAden%20Car%20Wash!5e0!3m2!1sen!2sid!4v1742058231983!5m2!1sen!2sid"
+                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
-                        <div class="col-md-6">
-                            <div class="location-item">
-                                <i class="fa fa-map-marker-alt"></i>
-                                <div class="location-text">
-                                    <h3>Car Washing Point</h3>
-                                    <p>123 Street, New York, USA</p>
-                                    <p><strong>Call:</strong>+012 345 6789</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="location-item">
-                                <i class="fa fa-map-marker-alt"></i>
-                                <div class="location-text">
-                                    <h3>Car Washing Point</h3>
-                                    <p>123 Street, New York, USA</p>
-                                    <p><strong>Call:</strong>+012 345 6789</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="location-form">
-                        <h3>Request for a car wash</h3>
-                        <form>
-                            <div class="control-group">
-                                <input type="text" class="form-control" placeholder="Name" required="required" />
-                            </div>
-                            <div class="control-group">
-                                <input type="email" class="form-control" placeholder="Email"
-                                    required="required" />
-                            </div>
-                            <div class="control-group">
-                                <textarea class="form-control" placeholder="Description" required="required"></textarea>
-                            </div>
-                            <div>
-                                <button class="btn btn-custom" type="submit">Send Request</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -472,289 +382,37 @@
     <!-- Location End -->
 
 
-    <!-- Team Start -->
-    <div class="team">
-        <div class="container">
-            <div class="section-header text-center">
-                <p>Meet Our Team</p>
-                <h2>Our Engineers & Workers</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-item">
-                        <div class="team-img">
-                            <img src="img/team-1.jpg" alt="Team Image">
-                        </div>
-                        <div class="team-text">
-                            <h2>Donald John</h2>
-                            <p>Engineer</p>
-                            <div class="team-social">
-                                <a href=""><i class="fab fa-twitter"></i></a>
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
-                                <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                <a href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-item">
-                        <div class="team-img">
-                            <img src="img/team-2.jpg" alt="Team Image">
-                        </div>
-                        <div class="team-text">
-                            <h2>Adam Phillips</h2>
-                            <p>Engineer</p>
-                            <div class="team-social">
-                                <a href=""><i class="fab fa-twitter"></i></a>
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
-                                <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                <a href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-item">
-                        <div class="team-img">
-                            <img src="img/team-3.jpg" alt="Team Image">
-                        </div>
-                        <div class="team-text">
-                            <h2>Thomas Olsen</h2>
-                            <p>Worker</p>
-                            <div class="team-social">
-                                <a href=""><i class="fab fa-twitter"></i></a>
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
-                                <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                <a href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-item">
-                        <div class="team-img">
-                            <img src="img/team-4.jpg" alt="Team Image">
-                        </div>
-                        <div class="team-text">
-                            <h2>James Alien</h2>
-                            <p>Worker</p>
-                            <div class="team-social">
-                                <a href=""><i class="fab fa-twitter"></i></a>
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
-                                <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                <a href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Team End -->
-
-
-    <!-- Testimonial Start -->
-    <div class="testimonial">
-        <div class="container">
-            <div class="section-header text-center">
-                <p>Testimonial</p>
-                <h2>What our clients say</h2>
-            </div>
-            <div class="owl-carousel testimonials-carousel">
-                <div class="testimonial-item">
-                    <img src="img/testimonial-1.jpg" alt="Image">
-                    <div class="testimonial-text">
-                        <h3>Client Name</h3>
-                        <h4>Profession</h4>
-                        <p>
-                            Lorem ipsum dolor sit amet elit. Phasel preti mi facilis ornare velit non vulputa. Aliqu
-                            metus tortor auctor gravid
-                        </p>
-                    </div>
-                </div>
-                <div class="testimonial-item">
-                    <img src="img/testimonial-2.jpg" alt="Image">
-                    <div class="testimonial-text">
-                        <h3>Client Name</h3>
-                        <h4>Profession</h4>
-                        <p>
-                            Lorem ipsum dolor sit amet elit. Phasel preti mi facilis ornare velit non vulputa. Aliqu
-                            metus tortor auctor gravid
-                        </p>
-                    </div>
-                </div>
-                <div class="testimonial-item">
-                    <img src="img/testimonial-3.jpg" alt="Image">
-                    <div class="testimonial-text">
-                        <h3>Client Name</h3>
-                        <h4>Profession</h4>
-                        <p>
-                            Lorem ipsum dolor sit amet elit. Phasel preti mi facilis ornare velit non vulputa. Aliqu
-                            metus tortor auctor gravid
-                        </p>
-                    </div>
-                </div>
-                <div class="testimonial-item">
-                    <img src="img/testimonial-4.jpg" alt="Image">
-                    <div class="testimonial-text">
-                        <h3>Client Name</h3>
-                        <h4>Profession</h4>
-                        <p>
-                            Lorem ipsum dolor sit amet elit. Phasel preti mi facilis ornare velit non vulputa. Aliqu
-                            metus tortor auctor gravid
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Testimonial End -->
-
-
-    <!-- Blog Start -->
-    <div class="blog">
-        <div class="container">
-            <div class="section-header text-center">
-                <p>Our Blog</p>
-                <h2>Latest news & articles</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="blog-item">
-                        <div class="blog-img">
-                            <img src="img/blog-1.jpg" alt="Image">
-                            <div class="meta-date">
-                                <span>01</span>
-                                <strong>Jan</strong>
-                                <span>2045</span>
-                            </div>
-                        </div>
-                        <div class="blog-text">
-                            <h3><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                            <p>
-                                Lorem ipsum dolor sit amet elit. Pellent iaculis blandit lorem, quis convall diam
-                                eleife. Nam in arcu sit amet massa ferment quis enim. Nunc augue velit metus congue eget
-                                semper
-                            </p>
-                        </div>
-                        <div class="blog-meta">
-                            <p><i class="fa fa-user"></i><a href="">Admin</a></p>
-                            <p><i class="fa fa-folder"></i><a href="">Web Design</a></p>
-                            <p><i class="fa fa-comments"></i><a href="">15 Comments</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="blog-item">
-                        <div class="blog-img">
-                            <img src="img/blog-2.jpg" alt="Image">
-                            <div class="meta-date">
-                                <span>01</span>
-                                <strong>Jan</strong>
-                                <span>2045</span>
-                            </div>
-                        </div>
-                        <div class="blog-text">
-                            <h3><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                            <p>
-                                Lorem ipsum dolor sit amet elit. Pellent iaculis blandit lorem, quis convall diam
-                                eleife. Nam in arcu sit amet massa ferment quis enim. Nunc augue velit metus congue eget
-                                semper
-                            </p>
-                        </div>
-                        <div class="blog-meta">
-                            <p><i class="fa fa-user"></i><a href="">Admin</a></p>
-                            <p><i class="fa fa-folder"></i><a href="">Web Design</a></p>
-                            <p><i class="fa fa-comments"></i><a href="">15 Comments</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="blog-item">
-                        <div class="blog-img">
-                            <img src="img/blog-3.jpg" alt="Image">
-                            <div class="meta-date">
-                                <span>01</span>
-                                <strong>Jan</strong>
-                                <span>2045</span>
-                            </div>
-                        </div>
-                        <div class="blog-text">
-                            <h3><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                            <p>
-                                Lorem ipsum dolor sit amet elit. Pellent iaculis blandit lorem, quis convall diam
-                                eleife. Nam in arcu sit amet massa ferment quis enim. Nunc augue velit metus congue eget
-                                semper
-                            </p>
-                        </div>
-                        <div class="blog-meta">
-                            <p><i class="fa fa-user"></i><a href="">Admin</a></p>
-                            <p><i class="fa fa-folder"></i><a href="">Web Design</a></p>
-                            <p><i class="fa fa-comments"></i><a href="">15 Comments</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Blog End -->
-
 
     <!-- Footer Start -->
     <div class="footer">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
+            <div class="row justify-content-between">
+                <div class="col-lg-6 col-md-6">
                     <div class="footer-contact">
                         <h2>Get In Touch</h2>
                         <p><i class="fa fa-map-marker-alt"></i>123 Street, New York, USA</p>
                         <p><i class="fa fa-phone-alt"></i>+012 345 67890</p>
                         <p><i class="fa fa-envelope"></i>info@example.com</p>
-                        <div class="footer-social">
-                            <a class="btn" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn" href=""><i class="fab fa-youtube"></i></a>
-                            <a class="btn" href=""><i class="fab fa-instagram"></i></a>
-                            <a class="btn" href=""><i class="fab fa-linkedin-in"></i></a>
-                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-6 col-md-6">
                     <div class="footer-link">
                         <h2>Popular Links</h2>
-                        <a href="">About Us</a>
-                        <a href="">Contact Us</a>
-                        <a href="">Our Service</a>
-                        <a href="">Service Points</a>
-                        <a href="">Pricing Plan</a>
+                        <a href="/" class="nav-item nav-link active">Home</a>
+                        <a href="#about" class="nav-item nav-link">About</a>
+                        <a href="#service" class="nav-item nav-link">Service</a>
+                        <a href="#price" class="nav-item nav-link">Price</a>
+                        <a href="#location" class="nav-item nav-link">Washing Points</a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="footer-link">
-                        <h2>Useful Links</h2>
-                        <a href="">Terms of use</a>
-                        <a href="">Privacy policy</a>
-                        <a href="">Cookies</a>
-                        <a href="">Help</a>
-                        <a href="">FQAs</a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="footer-newsletter">
-                        <h2>Newsletter</h2>
-                        <form>
-                            <input class="form-control" placeholder="Full Name">
-                            <input class="form-control" placeholder="Email">
-                            <button class="btn btn-custom">Submit</button>
-                        </form>
-                    </div>
-                </div>
+
             </div>
         </div>
         <div class="container copyright">
-            <p>&copy; <a href="#">Your Site Name</a>, All Right Reserved. Designed By <a
-                    href="https://htmlcodex.com">HTML Codex</a></p>
+            <p>&copy; <a href="/">{{ setting()->name ?? setting()->short_name }}</a>
+                <br>
+                All Right Reserved
+            </p>
         </div>
     </div>
     <!-- Footer End -->
@@ -767,14 +425,31 @@
         <div class="loader"></div>
     </div>
 
+    <!--begin::Javascript-->
+    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+    @foreach (getGlobalAssets() as $path)
+        {!! sprintf('<script src="%s"></script>', asset($path)) !!}
+    @endforeach
+    <!--end::Global Javascript Bundle-->
+
+    <!--begin::Vendors Javascript(used by this page)-->
+    @foreach (getVendors('js') as $path)
+        {!! sprintf('<script src="%s"></script>', asset($path)) !!}
+    @endforeach
+    <!--end::Vendors Javascript-->
+
+    <!--begin::Custom Javascript(optional)-->
+    @foreach (getCustomJs() as $path)
+        {!! sprintf('<script src="%s"></script>', asset($path)) !!}
+    @endforeach
+    <!--end::Custom Javascript-->
+    <!--end::Javascript-->
+
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/landing-page/lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('assets/landing-page/lib/owlcarousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets/landing-page/lib/waypoints/waypoints.min.js') }}"></script>
     <script src="{{ asset('assets/landing-page/lib/counterup/counterup.min.js') }}"></script>
-
 
     <!-- Template Javascript -->
     <script src="{{ asset('assets/landing-page/js/main.js') }}"></script>
