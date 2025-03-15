@@ -21,18 +21,6 @@ class VehicleTypeSeeder extends Seeder
                 'name' => 'Roda 4',
                 'size' => 'MEDIUM',
             ],
-            [
-                'name' => 'Roda 6',
-                'size' => 'LARGE',
-            ],
-            [
-                'name' => 'Roda 8',
-                'size' => 'LARGE',
-            ],
-            [
-                'name' => 'Roda 16',
-                'size' => 'EXTRA_LARGE',
-            ],
         ];
 
         foreach ($vehicleTypes as $vehicleType) {
