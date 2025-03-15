@@ -3,8 +3,9 @@
 namespace App\Observers;
 
 use App\Models\User;
-use App\Models\Vehicle;
 use App\Traits\LogTrait;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Logout;
 
 class UserObserver
 {
@@ -35,5 +36,22 @@ class UserObserver
     public function deleted(User $user): void
     {
         $this->addLog('Menghapus user '.$user->name, $this->table, $user->id);
+    }
+
+    public function handleLogin(Login $event)
+    {
+        $user = $event->user;
+        $this->addLog('User '.$user->name.' logged in', $this->table, $user->id);
+    }
+
+    /**
+     * Handle user logout events.
+     */
+    public function handleLogout(Logout $event)
+    {
+        $user = $event->user;
+        if ($user) {
+            $this->addLog('User '.$user->name.' logged out', $this->table, $user->id);
+        }
     }
 }

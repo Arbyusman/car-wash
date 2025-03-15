@@ -54,10 +54,10 @@ class UserController extends Controller
             'role' => 'required|max:10',
         ]);
 
-
         if ($validator->fails()) {
             $errorMessage = $validator->messages()->all();
             Alert::toast($errorMessage, 'error');
+
             return redirect()->back()->withInput();
         }
 
@@ -73,7 +73,7 @@ class UserController extends Controller
 
         $file = $request->file('avatar');
         if ($file) {
-            $filename = time() . '.' . $request->file('avatar')->getClientOriginalExtension();
+            $filename = time().'.'.$request->file('avatar')->getClientOriginalExtension();
             Storage::putFileAs('public/images', $file, $filename);
             $input['avatar'] = $filename;
         }
@@ -126,7 +126,6 @@ class UserController extends Controller
                 ->withInput();
         }
 
-
         $input = [
             'name' => $request->name,
             'email' => $request->email,
@@ -137,14 +136,14 @@ class UserController extends Controller
 
         if ($request->password) {
             $file = $request->file('avatar');
-            $input['password'] =  Hash::make($request->password);
+            $input['password'] = Hash::make($request->password);
         }
 
         try {
 
             $file = $request->file('avatar');
             if ($file) {
-                $filename = time() . '.' . $request->file('avatar')->getClientOriginalExtension();
+                $filename = time().'.'.$request->file('avatar')->getClientOriginalExtension();
                 Storage::putFileAs('public/images', $file, $filename);
                 $input['avatar'] = $filename;
             }
@@ -224,7 +223,7 @@ class UserController extends Controller
 
         $file = $request->file('avatar');
         if ($file) {
-            $filename = time() . '.' . $request->file('avatar')->getClientOriginalExtension();
+            $filename = time().'.'.$request->file('avatar')->getClientOriginalExtension();
             Storage::putFileAs('public/images', $file, $filename);
             $input['avatar'] = $filename;
         }

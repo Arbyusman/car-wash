@@ -28,6 +28,7 @@
                             <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                                 <th style="width: 20%">User</th>
                                 <th style="width: 20%">Deskripsi</th>
+                                <th style="width: 20%">Waktu</th>
                                 <th style="width: 15%">Action</th>
                             </tr>
                         </thead>
@@ -44,6 +45,7 @@
                                     <tr>
                                         <td>{{ $vehicle->user?->name ?? 'N/A' }}</td>
                                         <td>{{ $vehicle->subject ?? 'N/A' }}</td>
+                                        <td>{{ $vehicle->created_at ?? 'N/A' }}</td>
                                         <td>{{ $vehicle->type ?? 'N/A' }}</td>
                                     </tr>
                                 @endforeach
