@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\ReportWashTransactionController;
 use App\Http\Controllers\RoleController;
@@ -24,6 +25,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // Auth::routes(['verify' => true]);
+
+Route::get('/', [LandingPageController::class, 'index'])
+    ->name('landing-page');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard')
