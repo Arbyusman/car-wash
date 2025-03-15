@@ -50,8 +50,8 @@ class ReportWashTransactionController extends Controller
         if (filled($dateRange)) {
             [$startDate, $endDate] = explode(' - ', $dateRange);
 
-            $startDate = Carbon::createFromFormat('d/m/Y', trim($startDate))->startOfDay()->format('Y-m-d H:i:s');
-            $endDate = Carbon::createFromFormat('d/m/Y', trim($endDate))->endOfDay()->format('Y-m-d H:i:s');
+            $startDate = Carbon::createFromFormat('m/d/Y', trim($startDate))->startOfDay()->format('Y-m-d H:i:s');
+            $endDate = Carbon::createFromFormat('m/d/Y', trim($endDate))->endOfDay()->format('Y-m-d H:i:s');
         }
 
         $washTransactions = WashTransaction::with(['washTransactionDetail', 'washer', 'washTransactionDetail.vehicle', 'createdBy', 'updatedBy'])

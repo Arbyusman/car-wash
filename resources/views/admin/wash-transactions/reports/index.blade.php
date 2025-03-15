@@ -50,15 +50,50 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            @php
-                                $no = 1;
-                            @endphp
-
                             @if ($washTransactions->isEmpty())
                                 <x-no-data-row colspan="11" message="Data tidak ditemukan" />
                             @else
+                                @php
+                                    $no = 1;
+                                    $totalVehicleCost = 0;
+                                    $totalAdditionalCost = 0;
+                                    $totalPaymentAmount = 0;
+                                    $totalChangeAmount = 0;
+                                    $totalWasherCost = 0;
+                                    $totalCost = 0;
+                                    $totalNetto = 0;
+                                @endphp
+
                                 @foreach ($washTransactions as $washTransaction)
+                                    @php
+                                        $vehicleCost = $washTransaction->washTransactionDetail?->vehicle?->cost ?? 0;
+                                        $additionalCost = $washTransaction->washTransactionDetail->additional_cost ?? 0;
+                                        $paymentAmount = $washTransaction->payment_amount ?? 0;
+                                        $changeAmount = $washTransaction->change_amount ?? 0;
+
+                                        $washerCost =
+                                            $washTransaction->washTransactionDetail?->vehicle?->washer_cost ?? 0;
+                                        if ($washTransaction->washTransactionDetail->additional_cost) {
+                                            $washerCost += $washTransaction->washTransactionDetail->additional_cost / 2;
+                                        }
+
+                                        $totalTransactionCost = $washTransaction->total_cost ?? 0;
+
+                                        $netto =
+                                            $totalTransactionCost -
+                                            ($washTransaction->washTransactionDetail?->vehicle?->washer_cost ?? 0);
+                                        if ($washTransaction->washTransactionDetail->additional_cost) {
+                                            $netto -= $washTransaction->washTransactionDetail->additional_cost / 2;
+                                        }
+
+                                        $totalVehicleCost += $vehicleCost;
+                                        $totalAdditionalCost += $additionalCost;
+                                        $totalPaymentAmount += $paymentAmount;
+                                        $totalChangeAmount += $changeAmount;
+                                        $totalWasherCost += $washerCost;
+                                        $totalCost += $totalTransactionCost;
+                                        $totalNetto += $netto;
+                                    @endphp
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $washTransaction->updatedBy ? $washTransaction->updatedBy->name : $washTransaction->createdBy->name }}
@@ -68,23 +103,14 @@
                                         <td>{{ $washTransaction->created_at ? \Carbon\Carbon::parse($washTransaction->created_at)->locale('id')->translatedFormat('l, d F Y H:i') . ' WITA' : 'N/A' }}
                                         </td>
 
-                                        <td>{{ toRupiah($washTransaction->washTransactionDetail?->vehicle?->cost ?? 0) }}
-                                        </td>
-                                        <td>{{ toRupiah($washTransaction->washTransactionDetail->additional_cost ?? 0) }}
-                                        </td>
-                                        <td>{{ toRupiah($washTransaction->payment_amount ?? 0) }}</td>
-                                        <td>{{ toRupiah($washTransaction->change_amount ?? 0) }}</td>
-                                        <td>{{ toRupiah($washTransaction->total_cost ?? 0) }}</td>
-                                        <td>{{ toRupiah($washTransaction->washTransactionDetail?->vehicle?->washer_cost ?? 0) }}
-                                        </td>
-                                        <td>
-                                            @php
-                                                $netto =
-                                                    $washTransaction->total_cost -
-                                                    $washTransaction->washTransactionDetail?->vehicle?->washer_cost;
-                                            @endphp
-                                            {{ toRupiah($netto) }}
-                                        </td>
+                                        <td class="text-right">{{ toRupiah($vehicleCost) }}</td>
+                                        <td class="text-right">{{ toRupiah($additionalCost) }}</td>
+                                        <td class="text-right">{{ toRupiah($paymentAmount) }}</td>
+                                        <td class="text-right">{{ toRupiah($changeAmount) }}</td>
+
+                                        <td class="text-right">{{ toRupiah($washerCost) }}</td>
+                                        <td class="text-right">{{ toRupiah($totalTransactionCost) }}</td>
+                                        <td class="text-right">{{ toRupiah($netto) }}</td>
                                     </tr>
                                 @endforeach
                             @endif
@@ -103,7 +129,7 @@
         <x-slot name="body">
             <form action="{{ route('wash-transaction-reports.report') }}" method="POST">
                 @csrf
-                @method("get")
+                @method('get')
 
                 <div class="fv-row mb-8">
                     <x-label class="mb-2 fs-6 fw-semibold" value="Kasir" :required="false" />
