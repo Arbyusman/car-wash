@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('transaction_number');
             $table->float('payment_amount');
-            $table->float('change_amount')->->nullable();
+            $table->float('change_amount')->nullable();
             $table->float('total_cost');
             $table->boolean('is_printed')->default(false);
             $table->foreignId('washer_id')->constrained('washers');
