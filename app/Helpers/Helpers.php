@@ -2,6 +2,7 @@
 
 use App\Enums\SizeTypes;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Cache;
 
 if (! function_exists('theme')) {
     function theme()
@@ -361,7 +362,7 @@ if (! function_exists('image')) {
      */
     function image($path)
     {
-        return asset('assets/media/'.$path);
+        return asset('assets/media/' . $path);
     }
 }
 
@@ -381,11 +382,17 @@ if (! function_exists('getIcon')) {
 if (! function_exists('setting')) {
     function setting()
     {
-        $setting = Setting::first();
+        $setting = Cache::get('settings');
+
+        if (!$setting) {
+            $setting = Setting::first();
+            Cache::forever('settings', $setting);
+        }
 
         return $setting;
     }
 }
+
 if (! function_exists('sizeTypes')) {
     function sizeTypes()
     {
@@ -396,6 +403,6 @@ if (! function_exists('sizeTypes')) {
 if (! function_exists('toRupiah')) {
     function toRupiah($amount)
     {
-        return 'Rp '.number_format($amount, 0, ',', '.');
+        return 'Rp ' . number_format($amount, 0, ',', '.');
     }
 }

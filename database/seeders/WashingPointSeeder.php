@@ -15,7 +15,7 @@ class WashingPointSeeder extends Seeder
         $washingPoints = [
             [
                 'address' => 'l. Mekar Jaya 1, Punggolaka, Kec. Puuwatu, Kota Kendari, Sulawesi Tenggara 93115',
-                'phone' => '+062 345 6789',
+                'phone' => '+62 345 6789',
             ],
 
         ];
