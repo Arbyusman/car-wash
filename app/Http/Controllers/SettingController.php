@@ -37,7 +37,7 @@ class SettingController extends Controller
             'email' => 'nullable|email|max:255',
             'phone' => 'nullable|string|max:255',
             'opening_hour' => 'nullable|string|max:255',
-            'embed_map' => 'nullable|string|max:255',
+            'embed_map' => 'nullable|string',
             'small_icon' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'large_icon' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'background_login' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
