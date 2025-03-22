@@ -71,6 +71,22 @@
                     </div>
                 </div>
             @endif
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div class="menu-item">
+                    <a class="menu-link" href={{ route('testimonis.index') }}>
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-message-notif">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                                <span class="path5"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Testimoni</span>
+                    </a>
+                </div>
+            </div>
             @if (in_array(Auth::user()->role_id, [1]))
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <div class="menu-item">

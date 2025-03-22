@@ -1,6 +1,6 @@
 (function ($) {
     "use strict";
-    
+
     // loader
     var loader = function () {
         setTimeout(function () {
@@ -10,7 +10,7 @@
         }, 1);
     };
     loader();
-    
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 200) {
@@ -20,11 +20,11 @@
         }
     });
     $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+        $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
         return false;
     });
-    
-    
+
+
     // Sticky Navbar
     $(window).scroll(function () {
         if ($(this).scrollTop() > 90) {
@@ -35,8 +35,8 @@
             $('.carousel, .page-header').css("margin-top", "0");
         }
     });
-    
-    
+
+
     // Dropdown on mouse hover
     $(document).ready(function () {
         function toggleNavbarMethod() {
@@ -54,7 +54,7 @@
         $(window).resize(toggleNavbarMethod);
     });
 
-    
+
     // Main carousel
     $(".carousel .owl-carousel").owlCarousel({
         autoplay: true,
@@ -64,14 +64,14 @@
         smartSpeed: 300,
         dots: false,
         loop: true,
-        nav : true,
-        navText : [
+        nav: true,
+        navText: [
             '<i class="fa fa-angle-left" aria-hidden="true"></i>',
             '<i class="fa fa-angle-right" aria-hidden="true"></i>'
         ]
     });
 
-    
+
     // Facts counter
     $('[data-toggle="counter-up"]').counterUp({
         delay: 10,
@@ -87,44 +87,80 @@
         dots: true,
         loop: true,
         responsive: {
-            0:{
-                items:1
+            0: {
+                items: 1
             },
-            576:{
-                items:1
+            576: {
+                items: 1
             },
-            768:{
-                items:2
+            768: {
+                items: 2
             },
-            992:{
-                items:3
+            992: {
+                items: 3
             }
         }
     });
-    
-    
+
+
     // Related post carousel
     $(".related-slider").owlCarousel({
         autoplay: true,
         dots: false,
         loop: true,
-        nav : true,
-        navText : [
+        nav: true,
+        navText: [
             '<i class="fa fa-angle-left" aria-hidden="true"></i>',
             '<i class="fa fa-angle-right" aria-hidden="true"></i>'
         ],
         responsive: {
-            0:{
-                items:1
+            0: {
+                items: 1
             },
-            576:{
-                items:1
+            576: {
+                items: 1
             },
-            768:{
-                items:2
+            768: {
+                items: 2
             }
         }
     });
-    
+
+
+    var priceCarousel = $(".price-carousel");
+
+    priceCarousel.owlCarousel({
+        loop: true,
+        margin: 20,
+        nav: false,
+        dots: false,
+        autoplay: true,
+        autoplayTimeout: 2000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: { items: 1 },
+            768: { items: 2 },
+            992: { items: 3 }
+        },
+        onInitialized: function (event) {
+            highlightCenterItem(event);
+        },
+        onTranslated: function (event) {
+            highlightCenterItem(event);
+        }
+    });
+
+    function highlightCenterItem(event) {
+        var visibleItems = $(".price-carousel .owl-item.active");
+        var centerIndex = Math.floor(visibleItems.length / 2);
+
+        $(".price-carousel .owl-item").removeClass("featured-item");
+        visibleItems.eq(centerIndex).addClass("featured-item");
+    }
+
+
+
+
+
 })(jQuery);
 

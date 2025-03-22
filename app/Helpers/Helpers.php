@@ -406,3 +406,16 @@ if (! function_exists('toRupiah')) {
         return 'Rp '.number_format($amount, 0, ',', '.');
     }
 }
+
+if (! function_exists('hideEmail')) {
+    function hideEmail($email)
+    {
+        if (! $email) {
+            return '';
+        }
+
+        [$name, $domain] = explode('@', $email);
+
+        return substr($name, 0, 2).'xxx@'.$domain;
+    }
+}

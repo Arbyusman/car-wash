@@ -281,52 +281,12 @@
                 <p>Washing Plan</p>
                 <h2>Choose Your Plan</h2>
             </div>
-            <div class="row">
-                <div class="col-md-4">
+            <div class="owl-carousel price-carousel">
+                @foreach ($vehicles as $index => $vehicle)
                     <div class="price-item">
                         <div class="price-header">
-                            <h3>Basic Cleaning</h3>
-                            <h2><span>$</span><strong>25</strong><span>.99</span></h2>
-                        </div>
-                        <div class="price-body">
-                            <ul>
-                                <li><i class="far fa-check-circle"></i>Seats Washing</li>
-                                <li><i class="far fa-check-circle"></i>Vacuum Cleaning</li>
-                                <li><i class="far fa-check-circle"></i>Exterior Cleaning</li>
-                                <li><i class="far fa-times-circle"></i>Interior Wet Cleaning</li>
-                                <li><i class="far fa-times-circle"></i>Window Wiping</li>
-                            </ul>
-                        </div>
-                        <div class="price-footer">
-                            <a class="btn btn-custom" href="">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="price-item featured-item">
-                        <div class="price-header">
-                            <h3>Premium Cleaning</h3>
-                            <h2><span>$</span><strong>35</strong><span>.99</span></h2>
-                        </div>
-                        <div class="price-body">
-                            <ul>
-                                <li><i class="far fa-check-circle"></i>Seats Washing</li>
-                                <li><i class="far fa-check-circle"></i>Vacuum Cleaning</li>
-                                <li><i class="far fa-check-circle"></i>Exterior Cleaning</li>
-                                <li><i class="far fa-check-circle"></i>Interior Wet Cleaning</li>
-                                <li><i class="far fa-times-circle"></i>Window Wiping</li>
-                            </ul>
-                        </div>
-                        <div class="price-footer">
-                            <a class="btn btn-custom" href="">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="price-item">
-                        <div class="price-header">
-                            <h3>Complex Cleaning</h3>
-                            <h2><span>$</span><strong>49</strong><span>.99</span></h2>
+                            <h2>{{ $vehicle?->name }}</h2>
+                            <h3><strong>{{ toRupiah($vehicle->cost) }}</strong></h3>
                         </div>
                         <div class="price-body">
                             <ul>
@@ -337,15 +297,13 @@
                                 <li><i class="far fa-check-circle"></i>Window Wiping</li>
                             </ul>
                         </div>
-                        <div class="price-footer">
-                            <a class="btn btn-custom" href="">Book Now</a>
-                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
     <!-- Price End -->
+
 
 
     <!-- Location Start -->
@@ -389,6 +347,69 @@
     <!-- Location End -->
 
 
+
+
+    <!-- Testimonial Start -->
+    <div class="testimonial">
+        <div class="container">
+            <div class="section-header text-center">
+                <p>Testimonial</p>
+                <h2>What our clients say</h2>
+            </div>
+            <div class="owl-carousel testimonials-carousel">
+                @foreach ($testimonis as $testimoni)
+                    <div class="testimonial-item">
+                        <div class="testimonial-text">
+                            <h3>{{ $testimoni?->name }}</h3>
+                            <h4>{{ hideEmail($testimoni?->email) }}</h4>
+                            <p>
+                                {{ $testimoni?->description }}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        <div class="container d-flex justify-content-center">
+            <div class="col-md-8 mt-8">
+                <h1 class="text-center my-3">Write Your Testimoni</h1>
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <form action={{ route('testimonis.store') }} method="POST">
+                    @method('POST')
+                    @csrf
+                    <div class="form-group my-2">
+                        <input type="text" class="form-control" name="name" placeholder="Name"
+                            required="required" />
+                    </div>
+                    <div class="form-group my-2">
+                        <input type="email" class="form-control" name="email" placeholder="Email"
+                            required="required" />
+                    </div>
+                    <div class="form-group my-2">
+                        <textarea rows="5" class="form-control" name="description" placeholder="Description" required="required"></textarea>
+                    </div>
+                    <div class="d-flex justify-content-center my-4">
+                        <button class="btn btn-custom" type="submit">Send Testimoni</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
 
     <!-- Footer Start -->
     <div class="footer">

@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             VehicleSeeder::class,
             WasherSeeder::class,
             WashingPointSeeder::class,
+            TestimoniSeeder::class,
 
         ]);
 
