@@ -76,6 +76,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+
+                                    <div class="">
+                                        <x-label value="Map" />
+                                        <textarea rows="5" type="text" class="form-control" name="address" placeholder="Masukkan Embed Map">
+                                                {{ $setting?->embed_map }}
+                                            </textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <div class="col-lg-6 mt-5">
                                         <div class="">
                                             <x-label value="Logo Kecil Aplikasi" />

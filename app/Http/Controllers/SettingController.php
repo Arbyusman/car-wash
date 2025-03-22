@@ -31,9 +31,13 @@ class SettingController extends Controller
         $setting = Setting::findOrFail($request->id);
 
         $validator = Validator::make($request->all(), [
-            'name' => 'nullable|max:255',
-            'short_name' => 'nullable|max:255',
-            'address' => 'nullable|max:255',
+            'name' => 'nullable|string|max:255',
+            'short_name' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'email' => 'nullable|email|max:255',
+            'phone' => 'nullable|string|max:255',
+            'opening_hour' => 'nullable|string|max:255',
+            'embed_map' => 'nullable|string|max:255',
             'small_icon' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'large_icon' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'background_login' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',

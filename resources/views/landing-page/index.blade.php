@@ -334,10 +334,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="map-responsive">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3980.227695478214!2d122.4932499!3d-3.9734848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d98f2dfe9a18065%3A0x575c442301059b78!2sAden%20Car%20Wash!5e0!3m2!1sen!2sid!4v1742058231983!5m2!1sen!2sid"
-                                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                                </iframe>
+                                {!! setting()?->embed_map !!}
                             </div>
                         </div>
                     </div>

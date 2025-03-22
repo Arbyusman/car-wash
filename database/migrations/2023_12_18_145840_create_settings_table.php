@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('email');
             $table->string('opening_hour');
+            $table->text('embed_map');
             $table->softDeletes();
             $table->timestamps();
         });
