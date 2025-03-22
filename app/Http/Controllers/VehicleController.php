@@ -6,6 +6,7 @@ use App\Models\Vehicle;
 use App\Models\VehicleType;
 use App\Traits\CurrencyTrait;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class VehicleController extends Controller
 {
@@ -44,6 +45,8 @@ class VehicleController extends Controller
 
         Vehicle::create($request->all());
 
+        Alert::toast('Vehicle created successfully', 'success');
+
         return redirect()->route('vehicles.index')->with('success', 'Vehicle created successfully');
     }
 
@@ -63,6 +66,8 @@ class VehicleController extends Controller
 
         $vehicle->update($request->all());
 
+        Alert::toast('Vehicle updated successfully', 'success');
+
         return redirect()->route('vehicles.index')->with('success', 'Vehicle updated successfully');
     }
 
@@ -72,6 +77,8 @@ class VehicleController extends Controller
     public function destroy(Vehicle $vehicle)
     {
         $vehicle->delete();
+
+        Alert::toast('Vehicle deleted successfully', 'success');
 
         return redirect()->route('vehicles.index')->with('success', 'Vehicle deleted successfully');
     }

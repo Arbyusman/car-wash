@@ -11,6 +11,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class WashTransactionController extends Controller
 {
@@ -52,6 +53,8 @@ class WashTransactionController extends Controller
         $changeAmount = $this->convertToInteger($request->change_amount);
 
         if ($additionalCost < 0) {
+            Alert::toast('Biaya tambahan tidak boleh negatif', 'error');
+
             return back()->withErrors(['additional_cost' => 'Biaya tambahan tidak boleh negatif.']);
         }
 
@@ -73,6 +76,8 @@ class WashTransactionController extends Controller
             'plate_number' => $request->plate_number,
             'additional_cost' => $additionalCost,
         ]);
+
+        Alert::toast('Transaction created successfully', 'success');
 
         return redirect()->route('wash-transactions.index')->with('success', 'Wash Transaction created successfully');
     }
@@ -100,6 +105,8 @@ class WashTransactionController extends Controller
         $changeAmount = $this->convertToInteger($request->change_amount);
 
         if ($additionalCost < 0) {
+            Alert::toast('Biaya tambahan tidak boleh negatif', 'error');
+
             return back()->withErrors(['additional_cost' => 'Biaya tambahan tidak boleh negatif.']);
         }
 
@@ -121,6 +128,8 @@ class WashTransactionController extends Controller
             'additional_cost' => $additionalCost,
         ]);
 
+        Alert::toast('Transaction updated successfully', 'success');
+
         return redirect()->route('wash-transactions.index')->with('success', 'Wash Transaction updated successfully');
     }
 
@@ -130,6 +139,8 @@ class WashTransactionController extends Controller
     public function destroy(WashTransaction $washTransaction)
     {
         if ($washTransaction->is_printed) {
+            Alert::toast('Data transaksi sudah dicetak, tidak bisa dihapus.', 'error');
+
             return back()->withErrors('Data transaksi sudah dicetak, tidak bisa dihapus.');
         }
         $washTransaction->delete();

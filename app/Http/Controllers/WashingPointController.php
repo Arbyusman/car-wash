@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\WashingPoint;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class WashingPointController extends Controller
 {
@@ -35,7 +36,9 @@ class WashingPointController extends Controller
 
         WashingPoint::create($request->all());
 
-        return redirect()->route('washing-points.index')->with('success', 'Washer created successfully');
+        Alert::toast('Washing point created successfully', 'success');
+
+        return redirect()->route('washing-points.index')->with('success', 'Washing point created successfully');
     }
 
     /**
@@ -50,7 +53,9 @@ class WashingPointController extends Controller
 
         $washingPoint->update($request->all());
 
-        return redirect()->route('washing-points.index')->with('success', 'Washer updated successfully');
+        Alert::toast('Washing point updated successfully', 'success');
+
+        return redirect()->route('washing-points.index')->with('success', 'Washing point updated successfully');
     }
 
     /**
@@ -60,6 +65,8 @@ class WashingPointController extends Controller
     {
         $washingPoint->delete();
 
-        return redirect()->route('washing-points.index')->with('success', 'Washer deleted successfully');
+        Alert::toast('Washing point deleted successfully', 'success');
+
+        return redirect()->route('washing-points.index')->with('success', 'Washing point deleted successfully');
     }
 }

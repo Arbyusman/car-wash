@@ -10,12 +10,5 @@ class Setting extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'name',
-        'short_name',
-        'small_icon',
-        'large_icon',
-        'background_login',
-        'address',
-    ];
+    protected $guarded = ['id'];
 }

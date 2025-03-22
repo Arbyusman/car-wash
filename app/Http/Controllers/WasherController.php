@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Washer;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class WasherController extends Controller
 {
@@ -34,6 +35,8 @@ class WasherController extends Controller
 
         Washer::create($request->all());
 
+        Alert::toast('Washer created successfully', 'success');
+
         return redirect()->route('washers.index')->with('success', 'Washer created successfully');
     }
 
@@ -48,6 +51,8 @@ class WasherController extends Controller
 
         $washer->update($request->all());
 
+        Alert::toast('Washer updated successfully', 'success');
+
         return redirect()->route('washers.index')->with('success', 'Washer updated successfully');
     }
 
@@ -57,6 +62,8 @@ class WasherController extends Controller
     public function destroy(Washer $washer)
     {
         $washer->delete();
+
+        Alert::toast('Washer deleted successfully', 'success');
 
         return redirect()->route('washers.index')->with('success', 'Washer deleted successfully');
     }

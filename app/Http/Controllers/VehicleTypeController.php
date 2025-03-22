@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\VehicleType;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class VehicleTypeController extends Controller
 {
@@ -35,6 +36,8 @@ class VehicleTypeController extends Controller
 
         VehicleType::create($request->all());
 
+        Alert::toast('Vehicle Type created successfully', 'success');
+
         return redirect()->route('vehicle-types.index')->with('success', 'Vehicle Type created successfully');
     }
 
@@ -50,6 +53,8 @@ class VehicleTypeController extends Controller
 
         $vehicleType->update($request->all());
 
+        Alert::toast('Vehicle Type updated successfully', 'success');
+
         return redirect()->route('vehicle-types.index')->with('success', 'Vehicle Type updated successfully');
     }
 
@@ -59,6 +64,8 @@ class VehicleTypeController extends Controller
     public function destroy(VehicleType $vehicleType)
     {
         $vehicleType->delete();
+
+        Alert::toast('Vehicle Type deleted successfully', 'success');
 
         return redirect()->route('vehicle-types.index')->with('success', 'Vehicle Type deleted successfully');
     }
