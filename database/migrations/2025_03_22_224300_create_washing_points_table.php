@@ -11,17 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('washing_points', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('short_name');
-            $table->string('small_icon');
-            $table->string('large_icon');
-            $table->string('background_login');
             $table->text('address');
             $table->string('phone');
-            $table->string('email');
-            $table->string('opening_hour');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('washing_points');
     }
 };

@@ -8,8 +8,7 @@
         <!--begin::Menu-->
         <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true"
             data-kt-menu-expand="false">
-          @if (in_array(Auth::user()->role_id, [1]))
-
+            @if (in_array(Auth::user()->role_id, [1]))
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <div class="menu-item">
                         <a class="menu-link" href={{ route('vehicle-types.index') }}>
@@ -57,8 +56,7 @@
                     </div>
                 </div>
             @endif
-            @if (in_array(Auth::user()->role_id, [1,2]))
-
+            @if (in_array(Auth::user()->role_id, [1, 2]))
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <div class="menu-item">
                         <a class="menu-link" href={{ route('wash-transactions.index') }}>
@@ -118,6 +116,19 @@
                 </div>
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <div class="menu-item">
+                        <a class="menu-link" href={{ route('washing-points.index') }}>
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-geolocation fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Washing Point</span>
+                        </a>
+                    </div>
+                </div>
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <div class="menu-item">
                         <a class="menu-link" href={{ route('settings.edit') }}>
                             <span class="menu-icon">
                                 <i class="fs-2 ki-duotone ki-setting-2">
@@ -131,8 +142,7 @@
                 </div>
             @endif
 
-          @if (in_array(Auth::user()->role_id, [1, 2]))
-
+            @if (in_array(Auth::user()->role_id, [1, 2]))
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <div class="menu-item">
                         <a class="menu-link" href={{ route('logs.index') }}>

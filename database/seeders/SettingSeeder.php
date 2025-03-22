@@ -19,8 +19,10 @@ class SettingSeeder extends Seeder
                 'small_icon' => 'default_logo.png',
                 'large_icon' => 'default_logo.png',
                 'background_login' => 'default_background.jpg',
-                'address' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus nihil fuga, voluptates in vel autem. Maiores tempora numquam ipsa nostrum!
-',
+                'address' => 'Jl. Mekar Jaya 1, Punggolaka, Kec. Puuwatu, Kota Kendari, Sulawesi Tenggara 93115',
+                'phone' => '+062 345 6789',
+                'email' => 'aden-carwash@gmai.com',
+                'opening_hour' => 'Mon - Fri, 8:00 - 9:00',
             ],
         ];
 
