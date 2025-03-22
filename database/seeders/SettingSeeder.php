@@ -22,7 +22,7 @@ class SettingSeeder extends Seeder
                 'address' => 'Jl. Mekar Jaya 1, Punggolaka, Kec. Puuwatu, Kota Kendari, Sulawesi Tenggara 93115',
                 'phone' => '+062 345 6789',
                 'email' => 'aden-carwash@gmai.com',
-                'opening_hour' => 'Mon - Fri, 8:00 - 9:00',
+                'opening_hour' => 'Mon - Fri, 08:00 - 22:00',
             ],
         ];
 

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>{{ setting()->name }}</title>
+    <title>{{ setting()?->name }}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free Website Template" name="keywords">
     <meta content="Free Website Template" name="description">
@@ -45,6 +45,7 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/landing-page/css/style.css') }}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -55,7 +56,7 @@
                 <div class="col-lg-4 col-md-12">
                     <div class="logo">
                         @php
-                            $name = setting()->name;
+                            $name = setting()?->name;
                             $words = explode(' ', trim($name), 2);
                             $firstWord = $words[0] ?? '';
                             $remainingWords = $words[1] ?? '';
@@ -74,7 +75,7 @@
                                 </div>
                                 <div class="top-bar-text">
                                     <h3>Opening Hour</h3>
-                                    <p>Mon - Fri, 8:00 - 9:00</p>
+                                    <p>{{ setting()?->opening_hour }}</p>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +86,7 @@
                                 </div>
                                 <div class="top-bar-text">
                                     <h3>Call Us</h3>
-                                    <p>+012 345 6789</p>
+                                    <p>{{ setting()?->phone }}</p>
                                 </div>
                             </div>
                         </div>
@@ -96,7 +97,7 @@
                                 </div>
                                 <div class="top-bar-text">
                                     <h3>Email Us</h3>
-                                    <p>info@example.com</p>
+                                    <p>{{ setting()?->email }}</p>
                                 </div>
                             </div>
                         </div>
@@ -354,25 +355,31 @@
                 <div class="col-lg-12 d-flex flex-column justify-content-center">
                     <div class="section-header text-left">
                         <p>Washing Points</p>
-                        <h2>Car Washing & Care Points</h2>
+                        <h2>Car Washing Points</h2>
                     </div>
                     <div class="row flex-row justify-content-center">
                         <div class="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                            <div class="location-item">
-                                <i class="fa fa-map-marker-alt"></i>
-                                <div class="location-text">
-                                    <h3>Car Washing Point</h3>
-                                    <p>Jl. Mekar Jaya 1, Punggolaka, Kec. Puuwatu, Kota Kendari, Sulawesi Tenggara 93115
-                                    </p>
-                                    <p><strong>Call:</strong>+012 345 6789</p>
-                                </div>
+                            <div class="d-flex flex-column">
+                                @foreach ($washingPoints as $washingPoint)
+                                    <div class="location-item d-flex align-items-center">
+                                        <i class="fa fa-map-marker-alt"></i>
+                                        <div class="location-text">
+                                            <h3>Car Washing Point</h3>
+                                            <p>{{ $washingPoint?->address }}
+                                            </p>
+                                            <p><strong>Call:</strong>{{ $washingPoint?->phone }}</p>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3980.227695478214!2d122.4932499!3d-3.9734848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d98f2dfe9a18065%3A0x575c442301059b78!2sAden%20Car%20Wash!5e0!3m2!1sen!2sid!4v1742058231983!5m2!1sen!2sid"
-                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <div class="map-responsive">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3980.227695478214!2d122.4932499!3d-3.9734848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d98f2dfe9a18065%3A0x575c442301059b78!2sAden%20Car%20Wash!5e0!3m2!1sen!2sid!4v1742058231983!5m2!1sen!2sid"
+                                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -386,16 +393,16 @@
     <!-- Footer Start -->
     <div class="footer">
         <div class="container">
-            <div class="row justify-content-between">
-                <div class="col-lg-6 col-md-6">
+            <div class="d-md-flex justify-content-between">
+                <div class="col-md-8">
                     <div class="footer-contact">
                         <h2>Get In Touch</h2>
-                        <p><i class="fa fa-map-marker-alt"></i>123 Street, New York, USA</p>
-                        <p><i class="fa fa-phone-alt"></i>+012 345 67890</p>
-                        <p><i class="fa fa-envelope"></i>info@example.com</p>
+                        <p><i class="fa fa-map-marker-alt"></i>{{ setting()?->address }}</p>
+                        <p><i class="fa fa-phone-alt"></i>{{ setting()?->phone }}</p>
+                        <p><i class="fa fa-envelope"></i>{{ setting()?->email }}</p>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
+                <div class="col-md-4">
                     <div class="footer-link">
                         <h2>Popular Links</h2>
                         <a href="/" class="nav-item nav-link active">Home</a>
@@ -409,7 +416,7 @@
             </div>
         </div>
         <div class="container copyright">
-            <p>&copy; <a href="/">{{ setting()->name ?? setting()->short_name }}</a>
+            <p>&copy; <a href="/">{{ setting()?->name ?? setting()?->short_name }}</a>
                 <br>
                 All Right Reserved
             </p>
