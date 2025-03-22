@@ -409,7 +409,7 @@
                         <p><i class="fa fa-phone-alt"></i>{{ setting()?->phone }}</p>
                         <p><i class="fa fa-envelope"></i>{{ setting()?->email }}</p>
                     </div>
-                </div>
+                </div>  
                 <div class="col-md-4">
                     <div class="footer-link">
                         <h2>Popular Links</h2>

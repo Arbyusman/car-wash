@@ -79,7 +79,7 @@
 
                                     <div class="">
                                         <x-label value="Map" />
-                                        <textarea rows="5" type="text" class="form-control" name="address" placeholder="Masukkan Embed Map">
+                                        <textarea rows="5" type="text" class="form-control" name="embed_map" placeholder="Masukkan Embed Map">
                                                 {{ $setting?->embed_map }}
                                             </textarea>
                                     </div>
