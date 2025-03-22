@@ -124,6 +124,7 @@
                         <a href="#service" class="nav-item nav-link">Service</a>
                         <a href="#price" class="nav-item nav-link">Price</a>
                         <a href="#location" class="nav-item nav-link">Washing Points</a>
+                        <a href="#testimonial" class="nav-item nav-link">Testimonial</a>
                     </div>
                     <div class="ml-auto">
                         <a class="btn btn-custom" href="/login">{{ !Auth()->user() ? 'Login' : 'Dashboard' }}</a>
@@ -136,7 +137,7 @@
 
 
     <!-- Carousel Start -->
-    <div class="carousel" id="about">
+    {{-- <div class="carousel" id="about">
         <div class="container-fluid">
             <div class="owl-carousel">
                 <div class="carousel-item">
@@ -179,7 +180,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Carousel End -->
 
 
@@ -350,7 +351,7 @@
 
 
     <!-- Testimonial Start -->
-    <div class="testimonial">
+    <div id="testimonial" class="testimonial">
         <div class="container">
             <div class="section-header text-center">
                 <p>Testimonial</p>
@@ -372,7 +373,7 @@
         </div>
         <div class="container d-flex justify-content-center">
             <div class="col-md-8 mt-8">
-                <h1 class="text-center my-3">Write Your Testimoni</h1>
+                <h1 class="text-center my-3">Write Your Testimonial</h1>
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
@@ -431,6 +432,7 @@
                         <a href="#service" class="nav-item nav-link">Service</a>
                         <a href="#price" class="nav-item nav-link">Price</a>
                         <a href="#location" class="nav-item nav-link">Washing Points</a>
+                        <a href="#testimonial" class="nav-item nav-link">Testimonial</a>
                     </div>
                 </div>
 
