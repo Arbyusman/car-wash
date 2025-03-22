@@ -362,7 +362,7 @@ if (! function_exists('image')) {
      */
     function image($path)
     {
-        return asset('assets/media/' . $path);
+        return asset('assets/media/'.$path);
     }
 }
 
@@ -384,7 +384,7 @@ if (! function_exists('setting')) {
     {
         $setting = Cache::get('settings');
 
-        if (!$setting) {
+        if (! $setting) {
             $setting = Setting::first();
             Cache::forever('settings', $setting);
         }
@@ -403,6 +403,6 @@ if (! function_exists('sizeTypes')) {
 if (! function_exists('toRupiah')) {
     function toRupiah($amount)
     {
-        return 'Rp ' . number_format($amount, 0, ',', '.');
+        return 'Rp '.number_format($amount, 0, ',', '.');
     }
 }

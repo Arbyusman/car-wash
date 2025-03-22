@@ -50,7 +50,7 @@ class SettingController extends Controller
 
         foreach ($imageFields as $field) {
             if ($request->hasFile($field) && $setting->{$field}) {
-                $pathToOldFile = storage_path('app/public/images/' . $setting->{$field});
+                $pathToOldFile = storage_path('app/public/images/'.$setting->{$field});
 
                 if (File::exists($pathToOldFile)) {
                     $newFileName = $this->moveAndRenameFile($pathToOldFile);
@@ -84,9 +84,9 @@ class SettingController extends Controller
     {
         $fileName = pathinfo($pathToOldFile, PATHINFO_FILENAME);
         $fileExtension = pathinfo($pathToOldFile, PATHINFO_EXTENSION);
-        $newFileName = $fileName . '_' . time() . '.' . $fileExtension;
+        $newFileName = $fileName.'_'.time().'.'.$fileExtension;
 
-        Storage::put('public/images/' . $newFileName, File::get($pathToOldFile));
+        Storage::put('public/images/'.$newFileName, File::get($pathToOldFile));
         File::delete($pathToOldFile);
 
         return $newFileName;
@@ -94,7 +94,7 @@ class SettingController extends Controller
 
     private function saveFileToStorage($file, $field)
     {
-        $filename = time() . $field . '.' . $file->getClientOriginalExtension();
+        $filename = time().$field.'.'.$file->getClientOriginalExtension();
         $file->move(storage_path('app/public/images'), $filename);
 
         return $filename;
