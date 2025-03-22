@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             WasherSeeder::class,
             WashingPointSeeder::class,
             TestimoniSeeder::class,
+            AboutUsSeeder::class,
 
         ]);
 

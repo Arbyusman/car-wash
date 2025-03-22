@@ -145,6 +145,19 @@
                 </div>
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <div class="menu-item">
+                        <a class="menu-link" href={{ route('about-us.edit') }}>
+                            <span class="menu-icon">
+                                <i class="fs-2 ki-duotone ki-setting-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">About Us</span>
+                        </a>
+                    </div>
+                </div>
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <div class="menu-item">
                         <a class="menu-link" href={{ route('settings.edit') }}>
                             <span class="menu-icon">
                                 <i class="fs-2 ki-duotone ki-setting-2">

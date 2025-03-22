@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingPageController;
@@ -75,6 +76,12 @@ Route::middleware(['role_web:1', 'verified'])
         Route::controller(SettingController::class)->group(function () {
             Route::get('admin/settings', 'edit')->name('settings.edit');
             Route::post('admin/settings', 'update')->name('settings.update');
+        });
+
+        //# AboutUs
+        Route::controller(AboutUsController::class)->group(function () {
+            Route::get('admin/about-us', 'edit')->name('about-us.edit');
+            Route::post('admin/about-us', 'update')->name('about-us.update');
         });
 
         Route::resource('vehicle-types', VehicleTypeController::class)->except(['create', 'show', 'edit']);
