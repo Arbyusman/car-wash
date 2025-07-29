@@ -49,12 +49,17 @@ class ReportWashTransactionController extends Controller
 
         if (filled($dateRange)) {
             [$startDate, $endDate] = explode(' - ', $dateRange);
-
-            $startDate = Carbon::createFromFormat('m/d/Y', trim($startDate))->startOfDay()->format('Y-m-d H:i:s');
-            $endDate = Carbon::createFromFormat('m/d/Y', trim($endDate))->endOfDay()->format('Y-m-d H:i:s');
+            $startDate = Carbon::createFromFormat('m/d/Y', trim($startDate))->startOfDay();
+            $endDate = Carbon::createFromFormat('m/d/Y', trim($endDate))->endOfDay();
         }
 
-        $washTransactions = WashTransaction::with(['washTransactionDetail', 'washer', 'washTransactionDetail.vehicle', 'createdBy', 'updatedBy'])
+        $washTransactions = WashTransaction::with([
+            'washTransactionDetail',
+            'washer',
+            'washTransactionDetail.vehicle',
+            'createdBy',
+            'updatedBy'
+        ])
             ->when(filled($vehicleId), function ($query) use ($vehicleId) {
                 return $query->whereHas('washTransactionDetail.vehicle', function ($q) use ($vehicleId) {
                     $q->where('id', $vehicleId);
@@ -75,6 +80,6 @@ class ReportWashTransactionController extends Controller
         $pdf = Pdf::loadView('admin.wash-transactions.reports.report', compact('title', 'washTransactions', 'description'))
             ->setPaper('A4', 'landscape');
 
-        return $pdf->stream('Report_'.now()->format('d-m-Y').'.pdf');
+        return $pdf->stream('Report_' . now()->format('d-m-Y') . '.pdf');
     }
 }

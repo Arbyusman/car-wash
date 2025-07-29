@@ -19,14 +19,14 @@
                             Refresh
                         </a>
 
-                        <a title="Report Transaksi" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        <button  title="Report Transaksi" type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#report-transaksi">
                             <i class="ki-duotone ki-document fs-1">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
                             </i>
                             Report
-                        </a>
+                        </button>
 
                     </div>
 
@@ -180,7 +180,7 @@
 
                 <div class="modal-footer d-flex justify-content-center gap-2">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Download</button>
+                    <button target="_blank" type="submit" class="btn btn-primary">Download</button>
                 </div>
             </form>
         </x-slot>
