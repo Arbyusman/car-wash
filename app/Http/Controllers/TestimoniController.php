@@ -46,6 +46,6 @@ class TestimoniController extends Controller
 
         Testimoni::create($request->all());
 
-        return redirect()->back()->with('success', 'Testimoni created successfully');
+        return redirect('/#testimonial')->with('success', 'Testimoni created successfully');
     }
 }
