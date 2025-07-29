@@ -51,7 +51,7 @@
     <div class="invoice-container">
         <div class="header">
             <div class="logo">
-                <img src="{{ asset('storage/images/' . setting()->small_icon) }}" alt="Logo">
+                <img src="{{ public_path('storage/images/' . setting()->small_icon) }}" alt="Logo">
             </div>
             <h2>{{ setting()->name }}</h2>
             <p style="font-size:8px ">{{ setting()->address }}</p>
