@@ -160,6 +160,15 @@ class WashTransactionController extends Controller
         $pdf = Pdf::loadView('admin.wash-transactions.invoice', compact('washTransaction'))
             ->setPaper([0, 0, 226, 550]);
 
-        return $pdf->stream('invoice_'.$washTransaction->transaction_number.'.pdf');
+        return $pdf->stream('invoice_' . $washTransaction->transaction_number . '.pdf');
+    }
+
+    public function charts(Request $request)
+    {
+        $type = $request->input('type');
+        $value = $request->input('value');
+
+        $data = WashTransaction::getNetProfitByFilter($type, $value);
+        return response()->json($data);
     }
 }

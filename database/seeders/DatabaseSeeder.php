@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             WashingPointSeeder::class,
             TestimoniSeeder::class,
             AboutUsSeeder::class,
+            WashTransactionSeeder::class,
 
         ]);
 

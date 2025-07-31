@@ -42,7 +42,7 @@ Route::get('/error', function () {
 
 Route::get('/auth/redirect/{provider}', [SocialiteController::class, 'redirect']);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::resource('testimonis', TestimoniController::class)->except(['create', 'show', 'edit', 'update', 'destroy']);
 
@@ -99,6 +99,7 @@ Route::middleware(['role_web:1', 'verified'])
 
 Route::middleware(['role_web:1,2', 'verified'])->group(function () {
     Route::get('wash-transactions/invoice/{id}', [WashTransactionController::class, 'generateInvoice'])->name('wash-transactions.invoice');
+    Route::get('wash-transactions/charts', [WashTransactionController::class, 'charts'])->name('wash-transactions.charts');
     Route::resource('wash-transactions', WashTransactionController::class)->except(['create', 'show', 'edit']);
 
     Route::resource('logs', LogController::class)->except(['create', 'show', 'edit', 'update', 'destroy']);
