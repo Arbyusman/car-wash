@@ -215,7 +215,7 @@
                 <p>What We Do?</p>
                 <h2>Premium Washing Services</h2>
             </div>
-            <div class="row justify-content-center">
+            {{-- <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item">
                         <i class="flaticon-car-wash-1"></i>
@@ -258,7 +258,7 @@
                         <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <!-- Service End -->
