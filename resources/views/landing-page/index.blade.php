@@ -215,50 +215,74 @@
                 <p>What We Do?</p>
                 <h2>Premium Washing Services</h2>
             </div>
-            {{-- <div class="row justify-content-center">
+            <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item">
-                        <i class="flaticon-car-wash-1"></i>
                         <h3>Exterior Washing</h3>
-                        <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
+                        <ul>
+                            <li>pencucian body kendaraan</li>
+                            <li>sabun salju</li>
+                            <li>pembersihan beli dan ban</li>
+                            <li>pembilasan dengan air bertekanan</li>
+                            <li>pengeringan</li>
+                            <li>semir ban</li>
+                            <li>pembersihan kaca luar</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item">
-                        <i class="flaticon-car-wash"></i>
                         <h3>Interior Washing</h3>
-                        <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
+                        <ul>
+                            <li>pembersihan kabin(vacum)</li>
+                            <li>pembersihan dasbord</li>
+                            <li>pembersihan jok</li>
+                            <li>pembersihan kaca bagian dalam</li>
+                            <li>pengharum ruang mobil</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item">
-                        <i class="flaticon-vacuum-cleaner"></i>
                         <h3>Vacuum Cleaning</h3>
-                        <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
+                        <ul>
+                            <li>pembersihan debu</li>
+                            <li>sisa sisa makanan</li>
+                            <li>kotoran kecil disela kursi</li>
+                            <li>kotoran pada karpet</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item">
-                        <i class="flaticon-seat"></i>
                         <h3>Seats Washing</h3>
-                        <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
+                        <ul>
+                            <li>penyedotan debu awal</li>
+                            <li>penyemprotan cairan pembersih</li>
+                            <li>pengikatan lembut untuk angkat noda</li>
+                            <li>penyedotan kotoran</li>
+                            <li>pengeringan jok</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item">
-                        <i class="flaticon-car-service"></i>
                         <h3>Window Wiping</h3>
-                        <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
+                        <ul>
+                            <li>penyemprotan cairan pembersih</li>
+                            <li>pembersihan kaca depan, samping, belakang dan spion</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item">
-                        <i class="flaticon-car-service-2"></i>
                         <h3>Wet Cleaning</h3>
-                        <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
+                        <ul>
+                            <li>penyemprotan cairan pembersih menyeluruh pada kotoran yang menempel</li>
+                        </ul>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
     <!-- Service End -->
